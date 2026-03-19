@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomi Collectibles | Anime Figure Store</title>
+    <link rel="icon" type="image/png" href="Pictures/logo_emblem.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* NHÚNG PHÔNG CHỮ CHUYÊN BIỆT CỦA NEM CHO LOGO */
+        @font-face {
+            font-family: 'SVNRomaji';
+            src: url('Pictures/SVN-Romaji.ttf') format('truetype');
+        }
+
+        :root {
+            --sakura-light: #fff4f6; 
+            --sakura-pink: #f6d7dd;  
+            --torii-red: #CD5C5C;
+            --text-dark: #2C3E50;
+            --text-light: #555555;
+            --card-bg: rgba(255, 255, 255, 0.85); 
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            
+            /* ẢNH BACKGROUND NỀN */
+            background-image: url('Pictures/Background 1.jpg');
+            background-size: cover;          
+            background-position: center top; 
+            background-attachment: fixed;    
+            background-repeat: no-repeat;
+            background-color: var(--sakura-light);
+        }
+
+        h1, h2, h3 { font-family: 'Noto Serif JP', serif; }
+
+        /* HIỆU ỨNG HOA RƠI */
+        .sakura-petal { position: fixed; background-color: #f6d7dd; border-radius: 15px 0px 15px 0px; opacity: 0.8; pointer-events: none; z-index: 0; animation: fall linear infinite; }
+        .p1 { width: 15px; height: 15px; left: 10%; top: -10%; animation-duration: 12s; }
+        .p2 { width: 22px; height: 22px; left: 40%; top: -10%; animation-duration: 15s; animation-delay: 2s; }
+        .p3 { width: 12px; height: 12px; left: 75%; top: -10%; animation-duration: 10s; animation-delay: 5s; }
+        .p4 { width: 18px; height: 18px; left: 90%; top: -10%; animation-duration: 14s; animation-delay: 1s; }
+        .p5 { width: 14px; height: 14px; left: 25%; top: -10%; animation-duration: 13s; animation-delay: 7s; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; } 10% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg) translateX(80px); opacity: 0; } }
+
+        /* HEADER & MENU */
+        header { background-color: rgba(255, 255, 255, 0.95); padding: 15px 50px; display: flex; justify-content: center; align-items: center; position: fixed; top: 0; width: 100%; box-sizing: border-box; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.05); backdrop-filter: blur(10px); }
+
+        .brand-badge { position: absolute; left: 50px; display: inline-flex; align-items: center; gap: 12px; padding: 5px 20px 5px 5px; border-radius: 50px; background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(205, 92, 92, 0.2); text-decoration: none; transition: all 0.3s ease; }
+        .brand-badge:hover { border-color: rgba(205, 92, 92, 0.5); box-shadow: 0 4px 15px rgba(205, 92, 92, 0.1); }
+        .brand-badge img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .brand-text { color: var(--torii-red); font-family: 'SVNRomaji', 'Noto Serif JP', serif; font-size: 1.8rem; font-weight: normal; letter-spacing: 2px; text-transform: capitalize; }
+
+        .nav-pills { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .nav-pills a { text-decoration: none; color: var(--text-dark); font-family: 'Noto Serif JP', serif; font-weight: 600; padding: 8px 20px; border-radius: 30px; transition: all 0.3s ease; border: 1px solid transparent; }
+        .nav-pills a:hover, .nav-pills a:focus { color: var(--torii-red); background-color: rgba(255, 244, 246, 0.9); border: 1px solid var(--sakura-pink); transform: translateY(-2px); }
+
+        .nav-store-btn { color: var(--torii-red) !important; border: 2px solid var(--sakura-pink) !important; background-color: var(--sakura-light); }
+        .nav-store-btn:hover { background-color: var(--torii-red) !important; color: white !important; border-color: var(--torii-red) !important; }
+
+        /* KHUNG CHỨA NỘI DUNG */
+        section { padding: 60px 20px; position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; scroll-margin-top: 100px; }
+        #campaign { max-width: 1200px; }
+        .section-title { text-align: center; font-size: 2.5em; margin-bottom: 40px; background: rgba(255,255,255,0.85); display: inline-block; padding: 10px 30px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
+        .title-container { text-align: center; margin-bottom: 20px; } 
+
+        /* TRANG CHỦ (HOME) */
+        #home { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 85vh; padding-top: 120px; }
+        .center-logo-frame { width: 150px; height: 150px; margin-bottom: 25px; border-radius: 50%; padding: 8px; background: #ffffff; border: 2px solid var(--sakura-pink); box-shadow: 0 8px 25px rgba(205, 92, 92, 0.15); display: flex; align-items: center; justify-content: center; animation: float 3s infinite ease-in-out; }
+        .center-logo-frame img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        .premium-tagline { font-size: 2.6rem; font-style: italic; font-weight: 600; line-height: 1.4; margin-bottom: 20px; background: rgba(255,255,255,0.85); padding: 15px 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
+        .premium-tagline .highlight { color: var(--torii-red); font-weight: 700; }
+        .home-desc { background: rgba(255,255,255,0.9); padding: 12px 25px; border-radius: 20px; font-weight: 600; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
+
+        .hero-buttons { display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap; justify-content: center; }
+        .cta-button { padding: 15px 40px; font-size: 1.1rem; text-decoration: none; border-radius: 50px; font-weight: bold; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-primary { background-color: var(--torii-red); color: white; box-shadow: 0 8px 25px rgba(205, 92, 92, 0.4); border: 2px solid var(--torii-red); }
+        .btn-primary:hover { background-color: white; color: var(--torii-red); transform: translateY(-5px); box-shadow: 0 12px 30px rgba(205, 92, 92, 0.5); }
+        .btn-secondary { background-color: var(--text-dark); color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 2px solid var(--text-dark);}
+        .btn-secondary:hover { background-color: white; color: var(--text-dark); transform: translateY(-5px); }
+
+        /* VỀ CHÚNG TÔI (ABOUT) */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 20px; }
+        .card { background: var(--card-bg); backdrop-filter: blur(10px); padding: 40px 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-bottom: 5px solid white; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); border-bottom: 5px solid var(--torii-red); }
+
+        /* CÂU CHUYỆN THƯƠNG HIỆU (STORY) */
+        .story-content { display: flex; gap: 50px; align-items: center; justify-content: space-between; }
+        .story-text { flex: 1; font-size: 1.15em; text-align: justify; background: var(--card-bg); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .story-text strong { color: var(--torii-red); }
+        
+        .story-showcase-container { flex: 1; background: var(--card-bg); border-radius: 25px; padding: 50px 20px 30px 20px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .showcase-figures { display: flex; justify-content: center; align-items: center; margin-bottom: 25px; }
+        .showcase-figures img { border-radius: 12px; object-fit: cover; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: transform 0.4s ease; }
+        .fig-side { width: 130px; height: 190px; z-index: 1; }
+        .fig-left { transform: translateX(30px) scale(0.9) rotate(-3deg); }
+        .fig-right { transform: translateX(-30px) scale(0.9) rotate(3deg); }
+        .fig-center { width: 170px; height: 240px; z-index: 2; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .showcase-figures:hover .fig-center { transform: scale(1.05) translateY(-5px); }
+
+        /* CHIẾN DỊCH & POSTER */
+        .campaign-card { display: flex; flex-direction: column; background: var(--card-bg); backdrop-filter: blur(15px); border-radius: 25px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); width: 100%; margin: 0 auto; transition: transform 0.4s; }
+        .campaign-card:hover { transform: translateY(-5px); }
+        .campaign-image { width: 100%; }
+        .campaign-image img { width: 100%; height: auto; display: block; border-bottom: 4px solid var(--torii-red); }
+        .campaign-info { padding: 40px 50px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .campaign-info h3 { font-size: 2.2em; margin-top: 0; margin-bottom: 20px; font-family: 'Noto Serif JP', serif; color: var(--torii-red);}
+        .campaign-info p { font-size: 1.1em; max-width: 900px; margin-bottom: 15px;}
+        .event-button-outline { display: inline-block; background-color: var(--text-dark); color: white; padding: 15px 40px; font-size: 1.1em; border-radius: 30px; text-decoration: none; font-weight: bold; transition: all 0.3s; margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .event-button-outline:hover { background-color: var(--torii-red); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(205, 92, 92, 0.3);}
+
+        /* FOOTER LIÊN HỆ */
+        .site-footer { background-color: #1a1a1a; color: #e0e0e0; font-family: 'Nunito', sans-serif; padding: 50px 0 20px; margin-top: 60px; scroll-margin-top: 80px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .footer-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 30px; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+        .newsletter-box { display: flex; align-items: center; gap: 20px; flex-wrap: wrap;}
+        .newsletter-box h3 { color: #fff; margin: 0; font-family: 'Noto Serif JP', serif; font-size: 1.5em; }
+        .newsletter-form { display: flex; width: 100%;}
+        .newsletter-form input { padding: 12px 15px; border: none; border-radius: 4px 0 0 4px; outline: none; width: 250px; font-family: inherit;}
+        .newsletter-form button { padding: 12px 25px; border: none; background-color: var(--torii-red); color: white; font-weight: bold; border-radius: 0 4px 4px 0; cursor: pointer; transition: 0.3s;}
+        .newsletter-form button:hover { background-color: #A52A2A; }
+        .social-icons a { color: #fff; text-decoration: none; margin-left: 15px; font-size: 1.1em; transition: 0.3s; font-weight: bold;}
+        .social-icons a:hover { color: var(--torii-red); }
+
+        .footer-main { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 30px; }
+        .footer-col h4 { color: #fff; font-family: 'Noto Serif JP', serif; margin-bottom: 25px; font-size: 1.2em; position: relative; padding-bottom: 10px; }
+        .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background-color: var(--torii-red); }
+        .footer-col p { margin: 12px 0; font-size: 0.95em; color: #bbb; }
+        .footer-col strong { color: #fff; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 15px; }
+        .footer-col ul li a { color: #bbb; text-decoration: none; transition: 0.3s; font-size: 0.95em; }
+        .footer-col ul li a:hover { color: var(--torii-red); padding-left: 5px; } 
+        .payment-methods { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;}
+        .payment-methods span { background: #fff; color: #1a1a1a; padding: 5px 12px; border-radius: 4px; font-size: 0.8em; font-weight: bold; }
+        .footer-bottom { text-align: center; border-top: 1px solid #333; padding-top: 25px; margin-top: 40px; font-size: 0.9em; color: #888; }
+
+
+        /* ============================================================== */
+        /* MEDIA QUERIES - TỐI ƯU CỰC ĐỈNH CHO MOBILE ĐÂY                 */
+        /* ============================================================== */
+        @media (max-width: 900px) {
+            header { flex-direction: column; padding: 15px; }
+            .brand-badge { position: relative; left: 0; margin-bottom: 10px;}
+            .story-content { flex-direction: column; }
+            .footer-main { grid-template-columns: 1fr 1fr; } 
+            .footer-top { flex-direction: column; text-align: center; justify-content: center; }
+            .newsletter-box { justify-content: center; flex-direction: column;}
+        }
+
+        @media (max-width: 600px) {
+            /* 1. Header & Menu Vuốt Ngang */
+            .nav-pills { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100%; padding-bottom: 10px; -webkit-overflow-scrolling: touch;}
+            .nav-pills::-webkit-scrollbar { display: none; }
+            .nav-pills a { white-space: nowrap; font-size: 0.85em; padding: 6px 15px;}
+            
+            /* 2. Khoảng cách Chung */
+            section { padding: 40px 15px; scroll-margin-top: 140px; }
+            .section-title { font-size: 1.8em; padding: 8px 20px; margin-bottom: 25px;}
+
+            /* 3. Hero Section */
+            #home { padding-top: 140px; min-height: 75vh;}
+            .center-logo-frame { width: 110px; height: 110px; margin-bottom: 15px; }
+            .premium-tagline { font-size: 1.6rem; padding: 10px 15px; border-radius: 15px;}
+            .home-desc { font-size: 0.95rem; }
+            .hero-buttons { flex-direction: column; width: 100%; gap: 15px;}
+            .cta-button { width: 100%; box-sizing: border-box; font-size: 1rem; padding: 12px 20px;}
+
+            /* 4. Story Section (Thu nhỏ hình ảnh) */
+            .story-text { padding: 25px 20px; font-size: 1em; }
+            .story-showcase-container { padding: 30px 10px 20px 10px; }
+            .fig-center { width: 130px; height: 180px; }
+            .fig-side { width: 100px; height: 140px; }
+            .fig-left { transform: translateX(20px) scale(0.9) rotate(-3deg); }
+            .fig-right { transform: translateX(-20px) scale(0.9) rotate(3deg); }
+
+            /* 5. Campaign Section */
+            .campaign-info { padding: 25px 15px; }
+            .campaign-info h3 { font-size: 1.6em; margin-bottom: 10px;}
+            .campaign-info p { font-size: 0.95em; }
+
+            /* 6. Footer Layout */
+            .footer-main { grid-template-columns: 1fr; gap: 20px;}
+            .newsletter-form { flex-direction: column; width: 100%; gap: 10px;}
+            .newsletter-form input { width: 100%; border-radius: 4px; box-sizing: border-box; text-align: center;}
+            .newsletter-form button { width: 100%; border-radius: 4px; }
+            .social-icons a { margin: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sakura-petal p1"></div>
+    <div class="sakura-petal p2"></div>
+    <div class="sakura-petal p3"></div>
+    <div class="sakura-petal p4"></div>
+    <div class="sakura-petal p5"></div>
+
+    <header>
+        <a href="#home" class="brand-badge">
+            <img src="Pictures/logo_emblem.png" alt="Atomi Logo" onerror="this.src='Pictures/Logo final.jpg'">
+            <span class="brand-text">Atomi</span>
+        </a>
+        <nav class="nav-pills">
+            <a href="#home">Trang chủ</a>
+            <a href="#about">Về chúng tôi</a>
+            <a href="#story">Câu chuyện</a>
+            <a href="#campaign">Sự kiện</a>
+            <a href="#contact">Liên hệ</a>
+            <a href="store.html" class="nav-store-btn">Cửa Hàng 🛒</a>
+        </nav>
+    </header>
+
+    <section id="home">
+        <div class="center-logo-frame">
+            <img src="Pictures/logo_emblem.png" alt="Atomi Collectibles" onerror="this.src='Pictures/Logo final.jpg'">
+        </div>
+        
+        <h1 class="premium-tagline">
+            Nơi biến đam mê 2D thành <br>
+            <span class="highlight">một bộ sưu tập 3D đẳng cấp</span>
+        </h1>
+        
+        <p class="home-desc">Khám phá thế giới anime figure chính hãng, minh bạch và tinh tế với sự đồng hành của chuyên gia AI Atomi.</p>
+        
+        <div class="hero-buttons">
+            <a href="store.html" class="cta-button btn-primary">🛒 Ghé Cửa Hàng Ngay</a>
+            <a href="https://poe.com/invite/eb48a4eb36fe4c61b3792980ec7b16eb" target="_blank" class="cta-button btn-secondary">🤖 Trò chuyện AI Atomi</a>
+        </div>
+        
+    </section>
+
+    <section id="about">
+        <div class="cards-grid">
+            <div class="card">
+                <h3>✨ Tinh tế</h3>
+                <p>Gu thẩm mỹ cao cấp, không gian sắc hoa anh đào tĩnh lặng tôn vinh.</p>
+            </div>
+            <div class="card">
+                <h3>🧠 Am hiểu</h3>
+                <p>Uyên Bác - kiến thức anime/manga qua năng lực của trợ lý ảo AI chuyên sâu.</p>
+            </div>
+            <div class="card">
+                <h3>🛡️ Chân thực</h3>
+                <p>Cam kết tuyệt đối nguồn gốc chính hãng, minh bạch thông tin, xóa bỏ nỗi lo hàng giả.</p>
+            </div>
+            <div class="card">
+                <h3>❤️ Đam mê</h3>
+                <p>Luôn đồng điệu và chia sẻ tình yêu mãnh liệt với văn hóa 2D cùng cộng đồng.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="story">
+        <div class="title-container"><h2 class="section-title">Hành Trình Chạm Tay Vào Giấc Mơ</h2></div>
+        <div class="story-content">
+            <div class="story-text">
+                <p>Mỗi một nhân vật anime không chỉ là nét vẽ trên trang giấy hay những pixel trên màn hình phẳng.</p>
+                <p>Đó là những giấc mơ, là tuổi trẻ, và là nguồn cảm hứng mãnh liệt cất lên từ thế giới 2D.</p>
+                <p>Tại Atomi, mỗi mô hình là một tác phẩm nghệ thuật, mang trong mình linh hồn của người nghệ nhân và câu chuyện của nhân vật.</p>
+                <p>Cùng với sự đồng hành của trợ lý ảo AI "Atomi", chúng tôi tự hào dẫn lối bạn bước vào một không gian sưu tầm minh bạch, tinh tế và đầy cảm xúc.</p>
+                <p><strong>Cổng Torii & Hoa Anh Đào:</strong> Sự giao thoa giữa thế giới tưởng tượng và hiện thực, kết hợp với họa tiết sóng Seigaiha tượng trưng cho niềm đam mê sưu tầm trường tồn.</p>
+            </div>
+            <div class="story-showcase-container">
+                <div class="showcase-figures">
+                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" alt="Anime Figure 1" class="fig-side fig-left" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
+                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" alt="Anime Figure 2" class="fig-center" onerror="this.src='https://placehold.co/250x350/f6d7dd/CD5C5C'">
+                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" alt="Anime Figure 3" class="fig-side fig-right" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
+                </div>
+                <p style="font-family: 'Noto Serif JP', serif; font-size: 1.2em; font-weight: bold; margin: 0;">Atomi Art Showcase</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="campaign">
+        <div class="title-container"><h2 class="section-title">Chiến Dịch Nổi Bật</h2></div>
+        
+        <div class="campaign-card">
+            <div class="campaign-image">
+                <img src="Pictures/poster_event.jpg" alt="Bản Giao Hưởng Figure & Anime" onerror="this.src='https://placehold.co/1200x600/f1e4df/CD5C5C?text=Banner+Sự+Kiện'">
+            </div>
+            
+            <div class="campaign-info">
+                <h3>Bản Giao Hưởng Figure & Anime</h3>
+                <p>Chào mừng chương mới cùng Atomi Collectibles! Khởi đầu một chặng đường sưu tầm đầy hứa hẹn với những siêu phẩm mô hình sắc nét nhất từ các thương hiệu hàng đầu Nhật Bản.</p>
+                <p>Tận hưởng <strong>mức ưu đãi lên đến 25%</strong> cùng những phần <strong>Quà Tặng Giới Hạn</strong> cực kỳ giá trị dành riêng cho khách hàng trong thời gian từ <strong>17.03 - 04.04</strong>. Hãy nhanh tay lấp đầy tủ trưng bày của bạn!</p>
+                
+                <a href="store.html" class="event-button-outline">Săn ưu đãi ngay</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer" id="contact">
+        <div class="footer-container">
+            
+            <div class="footer-top">
+                <div class="newsletter-box">
+                    <h3>Đăng ký nhận tin</h3>
+                    <form class="newsletter-form" action="#" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã đăng ký!');">
+                        <input type="email" placeholder="Nhập email của bạn..." required>
+                        <button type="submit">Đăng ký</button>
+                    </form>
+                </div>
+                <div class="social-icons">
+                    <a href="#">Facebook</a> | 
+                    <a href="#">Instagram</a> | 
+                    <a href="#">Tiktok</a>
+                </div>
+            </div>
+
+            <div class="footer-main">
+                
+                <div class="footer-col">
+                    <h4>Atomi Collectibles</h4>
+                    <p><strong>Cửa hàng:</strong> Phân phối mô hình chính hãng</p>
+                    <p><strong>GPKD:</strong> 0123456789 do Sở KH&ĐT cấp</p>
+                    <p><strong>Giờ mở cửa:</strong> 09:00 - 21:00 (Thứ 2 - CN)</p>
+                    <p><strong>Địa chỉ:</strong> Hóc Môn, TP. Hồ Chí Minh</p>
+                    <p><strong>Hotline:</strong> 0322102007</p>
+                    <p><strong>Email:</strong> nguyenhoangnam543210@gmail.com</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Chính sách</h4>
+                    <ul>
+                        <li><a href="#">Tìm kiếm</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Chính sách vận chuyển</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Chính sách thanh toán</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Hướng dẫn</h4>
+                    <ul>
+                        <li><a href="#">Vận chuyển quốc tế</a></li>
+                        <li><a href="#">Cách bảo quản mô hình PVC</a></li>
+                        <li><a href="#">Phân biệt hàng chính hãng (Real/Fake)</a></li>
+                        <li><a href="#">Câu hỏi thường gặp (FAQ)</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Hotline hỗ trợ</h4>
+                    <p>Gọi mua hàng: <strong>0322102007</strong></p>
+                    <p>Gọi khiếu nại: <strong>0322102007</strong></p>
+                    
+                    <h4 style="margin-top: 30px; margin-bottom: 15px;">Phương thức thanh toán</h4>
+                    <div class="payment-methods">
+                        <span>VISA</span>
+                        <span>ATM</span>
+                        <span>MOMO</span>
+                        <span>COD</span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="footer-bottom">
+                &copy; 2026 Atomi Collectibles. All rights reserved. Designed for Anime Figure Fans.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

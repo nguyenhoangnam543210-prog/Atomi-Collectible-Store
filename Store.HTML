@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomi Store | Mua sắm Anime Figure</title>
+    <link rel="icon" type="image/png" href="Pictures/logo_emblem.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* PHÔNG CHỮ LOGO ATOMI CỦA NEM */
+        @font-face {
+            font-family: 'SVNRomaji';
+            src: url('Pictures/SVN-Romaji.ttf') format('truetype');
+        }
+
+        :root {
+            --sakura-light: #fff5f7; 
+            --sakura-pink: #f6d7dd;  
+            --torii-red: #CD5C5C;
+            --text-dark: #2C3E50;
+            --text-light: #555555;
+            --card-bg: #ffffff;
+            --discount-red: #e74c3c;
+        }
+
+        body { font-family: 'Nunito', sans-serif; margin: 0; padding: 0; color: var(--text-dark); background-color: var(--sakura-light); scroll-behavior: smooth; }
+        h1, h2, h3 { font-family: 'Noto Serif JP', serif; }
+
+        /* HOA RƠI */
+        .sakura-petal { position: fixed; background-color: #f6d7dd; border-radius: 15px 0px 15px 0px; opacity: 0.6; pointer-events: none; z-index: 0; animation: fall linear infinite; }
+        .p1 { width: 12px; height: 12px; left: 15%; top: -10%; animation-duration: 14s; }
+        .p2 { width: 18px; height: 18px; left: 45%; top: -10%; animation-duration: 17s; animation-delay: 2s; }
+        .p3 { width: 10px; height: 10px; left: 80%; top: -10%; animation-duration: 12s; animation-delay: 5s; }
+        .p4 { width: 15px; height: 15px; left: 90%; top: -10%; animation-duration: 16s; animation-delay: 1s; }
+        .p5 { width: 14px; height: 14px; left: 25%; top: -10%; animation-duration: 15s; animation-delay: 8s; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; } 10% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg) translateX(50px); opacity: 0; } }
+
+        /* HEADER */
+        .top-header { background-color: #ffffff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 10px;}
+        .brand-container { display: flex; align-items: center; gap: 10px; text-decoration: none; order: 1;}
+        .brand-container img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .brand-text { color: var(--torii-red); font-family: 'SVNRomaji', 'Noto Serif JP', serif; font-size: 2rem; letter-spacing: 1px; }
+        .search-bar { order: 2; flex: 0.6; display: flex; background: #f8f8f8; border-radius: 30px; padding: 5px 20px; border: 1px solid #eee; transition: 0.3s; }
+        .search-bar:focus-within { border-color: var(--sakura-pink); background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .search-bar input { flex: 1; border: none; background: transparent; padding: 10px 5px; outline: none; font-family: inherit; }
+        .search-bar button { border: none; background: transparent; color: var(--torii-red); font-weight: bold; cursor: pointer; }
+        .header-icons { order: 3; display: flex; gap: 20px; align-items: center; }
+        .header-icons a { text-decoration: none; color: var(--text-dark); font-weight: 600; display: flex; align-items: center; gap: 5px; transition: 0.3s; cursor: pointer;}
+        .header-icons a:hover { color: var(--torii-red); }
+        .cart-icon { background: var(--sakura-light); padding: 8px 15px; border-radius: 20px; border: 1px solid var(--sakura-pink); color: var(--torii-red) !important;}
+
+        /* MENU DANH MỤC */
+        .category-nav { background-color: #ffffff; padding: 12px 5%; display: flex; justify-content: center; gap: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex-wrap: wrap; position: relative; z-index: 100;}
+        .category-nav a { text-decoration: none; color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 0.9em; transition: 0.3s; white-space: nowrap;}
+        .category-nav a:hover, .category-nav a.active { color: var(--torii-red); border-bottom: 2px solid var(--torii-red); padding-bottom: 2px; }
+
+        /* BANNER SLIDER */
+        .banner-container { max-width: 1200px; margin: 30px auto; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); aspect-ratio: 21/9; }
+        .slide { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.6s ease-in-out; z-index: 1; cursor: pointer; }
+        .slide.active { opacity: 1; z-index: 2; position: relative; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.7); color: var(--torii-red); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 20px; font-weight: bold; cursor: pointer; z-index: 3; transition: 0.3s; }
+        .slider-btn:hover { background: white; transform: translateY(-50%) scale(1.1); }
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+        .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 3; }
+        .dot { width: 12px; height: 12px; background: rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: 0.3s; }
+        .dot.active { background: var(--torii-red); width: 25px; border-radius: 10px; }
+
+        /* DANH SÁCH SẢN PHẨM */
+        .store-section { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; scroll-margin-top: 130px; position: relative; z-index: 1;}
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid var(--sakura-pink); padding-bottom: 10px; }
+        .section-header h2 { margin: 0; color: var(--text-dark); font-size: 1.8em; }
+        .view-all { color: var(--torii-red); text-decoration: none; font-weight: bold; }
+        .view-all:hover { text-decoration: underline; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: var(--card-bg); border-radius: 15px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); text-align: center; transition: all 0.3s; border: 1px solid transparent; position: relative; }
+        .product-card:hover { transform: translateY(-8px); border-color: var(--sakura-pink); box-shadow: 0 10px 25px rgba(205, 92, 92, 0.1); }
+        .product-img { width: 100%; height: 280px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
+        
+        /* Chống rớt chữ */
+        .product-name { font-family: 'Noto Serif JP', serif; font-size: 1.15em; font-weight: bold; margin: 0 0 5px 0; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .product-series { font-size: 0.85em; color: #888; margin-bottom: 10px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        
+        /* STYLE CHO GIÁ KHUYẾN MÃI */
+        .price-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .product-price { color: var(--torii-red); font-size: 1.3em; font-weight: bold; margin-bottom: 15px; }
+        .price-container .product-price { margin-bottom: 0; }
+        .old-price { color: #999; text-decoration: line-through; font-size: 0.9em; font-weight: normal; }
+        .discount-tag { position: absolute; top: 15px; right: 15px; background-color: var(--discount-red); color: white; padding: 5px 10px; border-radius: 8px; font-weight: bold; font-size: 0.85em; z-index: 10; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); letter-spacing: 1px;}
+        
+        .buy-btn { display: block; width: 100%; padding: 12px; background: white; color: var(--torii-red); border: 2px solid var(--torii-red); border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .buy-btn:hover { background: var(--torii-red); color: white; }
+
+        /* BẢNG ĐĂNG NHẬP & GIỎ HÀNG */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 5000; justify-content: center; align-items: center; backdrop-filter: blur(3px); }
+        .login-box { background: white; width: 400px; padding: 40px 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.2); text-align: center; position: relative; max-width: 90%;}
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5em; cursor: pointer; color: #888; z-index: 100;}
+        .close-btn:hover { color: var(--torii-red); }
+        .login-box h2 { margin-top: 0; color: var(--text-dark); font-size: 1.8em; margin-bottom: 10px; }
+        .login-box p { color: #666; margin-bottom: 30px; }
+        .login-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 30px; font-weight: bold; font-size: 1em; cursor: pointer; transition: 0.3s; border: 1px solid #ddd; background: white; color: #333; }
+        .login-btn:hover { background: #f8f8f8; border-color: #ccc; }
+        .login-btn img { width: 20px; height: 20px; }
+        .btn-apple { background: #000; color: white; border: none; }
+        .btn-apple:hover { background: #333; }
+        .divider { margin: 20px 0; color: #aaa; font-size: 0.9em; position: relative; }
+        .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: #ddd; }
+        .divider::before { left: 0; } .divider::after { right: 0; }
+
+        /* Nút Hủy trong Giỏ Hàng */
+        .btn-remove { background: #ff4d4f; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85em; transition: 0.3s; font-weight: bold; }
+        .btn-remove:hover { background: #d9363e; }
+        .cart-item-row { border-bottom: 1px solid #eee; padding: 15px 0; display: flex; flex-direction: column; gap: 8px;}
+        .cart-item-header { display: flex; justify-content: space-between; align-items: center;}
+        .timer-badge { font-size: 0.85em; color: #856404; background: #fff3cd; padding: 5px 10px; border-radius: 5px; display: inline-block; border: 1px solid #ffeeba; align-self: flex-start;}
+
+        /* GIAO DIỆN XEM CHI TIẾT SẢN PHẨM KÈM HIỆU ỨNG ZOOM */
+        .product-detail-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 4000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .product-detail-card { background: #ffffff; max-width: 1050px; width: 95%; max-height: 90vh; border-radius: 20px; display: flex; overflow: hidden; position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.3); }
+        .product-gallery { flex: 1.1; padding: 30px; background: #fafafa; overflow-y: auto; display: flex; flex-direction: column; }
+        
+        .main-img-container { position: relative; width: 100%; margin-bottom: 20px; overflow: hidden; border-radius: 15px; cursor: zoom-in; background: #fff;}
+        .product-main-img { width: 100%; height: 450px; object-fit: contain; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.2s ease-out; }
+        
+        .product-badge { position: absolute; top: 15px; left: 15px; padding: 6px 12px; border-radius: 5px; font-weight: bold; font-size: 0.9em; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .badge-instock { background-color: #28a745; color: white; }
+        .badge-preorder { background-color: #ff9800; color: white; }
+        .badge-scale { background-color: #9c27b0; color: white; }
+        .badge-accessory { background-color: #6c757d; color: white; }
+
+        .product-thumbnails { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-top: auto; -webkit-overflow-scrolling: touch;}
+        .product-thumbnails img { width: 80px; height: 80px; min-width: 80px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
+        .product-thumbnails img:hover { border-color: var(--torii-red); transform: translateY(-3px); }
+        
+        .product-info { flex: 1; padding: 40px 50px; display: flex; flex-direction: column; justify-content: center; overflow-y: auto;}
+        .product-info h2 { font-size: 1.8em; color: var(--text-dark); margin-top: 0; margin-bottom: 10px; line-height: 1.3;}
+        .product-info .price { font-size: 2em; color: var(--torii-red); font-weight: bold; margin-bottom: 15px; }
+        
+        .modal-price-container { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .modal-price-container .price { margin-bottom: 0; }
+        .modal-old-price { color: #999; text-decoration: line-through; font-size: 1.2em; font-weight: normal;}
+
+        .product-meta { background: #f9f9f9; padding: 15px 20px; border-radius: 10px; border-left: 4px solid var(--torii-red); margin-bottom: 20px; font-size: 0.95em; color: var(--text-dark); }
+        .product-meta span { display: block; margin-bottom: 8px; }
+        .product-meta span:last-child { margin-bottom: 0; }
+        .product-meta strong { display: inline-block; width: 110px; color: #333; }
+
+        .product-info .desc { color: var(--text-light); font-size: 1.05em; margin-bottom: 20px; line-height: 1.6; }
+        
+        .product-actions { display: flex; gap: 15px; margin-top: 10px; }
+        .btn-cart { flex: 1; background: white; color: var(--torii-red); border: 2px solid var(--torii-red); padding: 15px 0; font-size: 1.1em; font-weight: bold; border-radius: 30px; cursor: pointer; transition: 0.3s; }
+        .btn-cart:hover { background: var(--sakura-light); }
+        .btn-buy { flex: 1; background: var(--torii-red); color: white; border: none; padding: 15px 0; font-size: 1.1em; font-weight: bold; border-radius: 30px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(205, 92, 92, 0.3); }
+        .btn-buy:hover { background: #A52A2A; transform: translateY(-2px); }
+
+        .product-tags { margin-top: 25px; padding-top: 15px; border-top: 1px dashed #ddd; font-size: 0.9em; color: #666; }
+        .product-tags strong { margin-right: 5px; color: #333; }
+        .product-tags a { color: var(--torii-red); text-decoration: none; margin-right: 8px; display: inline-block; background: var(--sakura-light); padding: 4px 10px; border-radius: 15px; border: 1px solid var(--sakura-pink); transition: 0.3s; margin-top: 5px;}
+        .product-tags a:hover { background: var(--torii-red); color: white; }
+
+        /* THÔNG BÁO TOAST */
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: var(--torii-red); color: white; padding: 15px 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: bold; animation: slideIn 0.4s ease-out forwards; display: flex; align-items: center; gap: 10px;}
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* NÚT AI & LÊN ĐẦU TRANG */
+        .ai-floating-btn { position: fixed; bottom: 30px; right: 30px; background: var(--torii-red); color: white; padding: 15px 25px; border-radius: 30px; box-shadow: 0 10px 25px rgba(205, 92, 92, 0.4); font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 10px; z-index: 100; transition: 0.3s; }
+        .ai-floating-btn img { width: 30px; height: 30px; border-radius: 50%; background: white; }
+        .ai-floating-btn:hover { transform: translateY(-5px); background: #A52A2A; }
+
+        #backToTopBtn {
+            position: fixed; bottom: 100px; right: 30px; z-index: 99; width: 50px; height: 50px; border-radius: 50%; background-color: var(--text-dark); color: white; font-size: 24px; border: none; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden;
+        }
+        #backToTopBtn:hover { background-color: var(--torii-red); transform: translateY(-5px); box-shadow: 0 8px 20px rgba(205, 92, 92, 0.4); }
+
+        /* FOOTER */
+        .site-footer { background-color: #1a1a1a; color: #e0e0e0; padding: 50px 0 20px; margin-top: 60px; position: relative; z-index: 1;}
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .footer-main { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 30px; }
+        .footer-col h4 { color: #fff; margin-bottom: 25px; position: relative; padding-bottom: 10px; }
+        .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background-color: var(--torii-red); }
+        .footer-col p, .footer-col a { color: #bbb; text-decoration: none; font-size: 0.95em; line-height: 1.8;}
+        .footer-col a:hover { color: var(--torii-red); }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 10px; }
+
+
+        /* ============================================================== */
+        /* MEDIA QUERIES - TỐI ƯU CỰC ĐỈNH CHO MOBILE ĐÂY                 */
+        /* ============================================================== */
+        @media (max-width: 900px) {
+            .product-detail-card { flex-direction: column; overflow-y: auto;}
+            .product-main-img { height: 300px; }
+            .product-info { padding: 20px; }
+            .footer-main { grid-template-columns: 1fr 1fr; }
+        }
+        
+        @media (max-width: 600px) {
+            /* 1. Header & Menu Vuốt Ngang */
+            .top-header { flex-wrap: wrap; padding: 10px; padding-bottom: 15px;}
+            .brand-container { order: 1; }
+            .header-icons { order: 2; gap: 10px;}
+            .brand-text { font-size: 1.6rem; }
+            .header-icons a { font-size: 0.9em; }
+            .cart-icon { padding: 6px 12px; }
+            .search-bar { order: 3; width: 100%; flex: 1 1 100%; margin-top: 10px; }
+            
+            .category-nav { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding: 10px 15px; -webkit-overflow-scrolling: touch; border-bottom: 1px solid #eee;}
+            .category-nav::-webkit-scrollbar { display: none; }
+            
+            .store-section { padding: 0 10px; scroll-margin-top: 140px;}
+            .banner-container { margin: 15px 10px; aspect-ratio: 16/9; border-radius: 10px;}
+            
+            /* 2. Sản phẩm 2 cột cho Mobile (Sửa Lỗi Rớt Dòng) */
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .product-card { padding: 10px; border-radius: 10px;}
+            .product-img { height: 160px; margin-bottom: 10px; }
+            
+            .product-name { font-size: 0.95em; margin-bottom: 3px; }
+            .product-series { font-size: 0.75em; margin-bottom: 5px; }
+            
+            /* Sắp xếp lại giá tiền nếu có giá giảm để không bị kẹt */
+            .price-container { flex-direction: column; gap: 0; align-items: center; margin-bottom: 8px;}
+            .product-price { font-size: 1.05em; margin-bottom: 8px; }
+            .price-container .product-price { margin-bottom: 0;}
+            .old-price { font-size: 0.8em; }
+            .discount-tag { font-size: 0.75em; padding: 3px 6px; top: 10px; right: 10px;}
+            
+            .buy-btn { padding: 8px; font-size: 0.85em; }
+
+            /* 3. Popup Tràn Viền như App */
+            .product-detail-card { width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; flex-direction: column; overflow-y: auto;}
+            
+            /* Nút X thêm background mờ để dễ bấm trên Mobile */
+            .close-btn { position: fixed; top: 10px; right: 10px; z-index: 5000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); background: rgba(255,255,255,0.9); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;}
+            
+            .product-gallery { padding: 15px; flex: none; }
+            .product-main-img { height: 300px; }
+            .product-info { padding: 15px 20px 20px 20px; flex: 1; }
+            .product-info h2 { font-size: 1.4em; }
+            
+            /* Ghim nút bấm mua hàng dưới đáy màn hình */
+            .product-actions { position: sticky; bottom: -20px; background: rgba(255,255,255,0.95); padding: 15px 0; margin-top: auto; border-top: 1px solid #eee; z-index: 10; backdrop-filter: blur(10px); display: flex; gap: 10px;}
+            
+            /* 4. Footer, Buttons & Toast */
+            .footer-main { grid-template-columns: 1fr; gap: 20px;}
+            .section-header h2 { font-size: 1.4em; }
+            
+            .ai-floating-btn { padding: 10px 15px; font-size: 0.85em; bottom: 20px; right: 20px;}
+            #backToTopBtn { bottom: 80px; right: 20px; width: 40px; height: 40px; font-size: 20px;}
+            
+            #toast-container { top: auto; bottom: 80px; left: 50%; transform: translateX(-50%); right: auto; width: 90%; align-items: center;}
+            .toast { width: 100%; justify-content: center; text-align: center; font-size: 0.9em; padding: 10px;}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sakura-petal p1"></div>
+    <div class="sakura-petal p2"></div>
+    <div class="sakura-petal p3"></div>
+
+    <header class="top-header">
+        <a href="index.html" class="brand-container">
+            <img src="Pictures/logo_emblem.png" alt="Atomi Logo" onerror="this.src='Pictures/Logo final.jpg'">
+            <span class="brand-text">Atomi</span>
+        </a>
+        <div class="header-icons">
+            <a onclick="openLogin()">👤 Tài khoản</a>
+            <a id="cartCount" class="cart-icon" onclick="openCart()">🛒 Giỏ hàng (0)</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="Gõ tên hoặc hashtag...">
+            <button onclick="filterProducts()">🔍 Tìm</button>
+        </div>
+    </header>
+
+    <div class="category-nav">
+        <a href="#hang-co-san">Hàng Có Sẵn</a>
+        <a href="#pre-order">Pre-Order</a>
+        <a href="#ti-le-1-7">Tỉ lệ 1/7</a>
+        <a href="#phu-kien">Phụ Kiện</a>
+        <a href="index.html">Về thương hiệu</a>
+    </div>
+
+    <div class="banner-container">
+        <img src="Pictures/Banner/Yae_Miko.jpg" class="slide active" onclick="openProductModal('modal-A1')" onerror="this.src='https://placehold.co/1200x500/f6d7dd/CD5C5C'">
+        <img src="Pictures/Banner/Ambience_Synesthesia_1.jpg" class="slide" onclick="openProductModal('modal-A2')" onerror="this.src='https://placehold.co/1200x500/fff5f7/CD5C5C'">
+        <button class="slider-btn prev-btn" onclick="event.stopPropagation(); changeSlide(-1)">❮</button>
+        <button class="slider-btn next-btn" onclick="event.stopPropagation(); changeSlide(1)">❯</button>
+        <div class="slider-dots">
+            <div class="dot active" onclick="event.stopPropagation(); goToSlide(0)"></div>
+            <div class="dot" onclick="event.stopPropagation(); goToSlide(1)"></div>
+        </div>
+    </div>
+
+    <section id="hang-co-san" class="store-section">
+        <div class="section-header"><h2>Hàng Có Sẵn</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="products-grid">
+            <div class="product-card" data-tags="fern frieren sega luminasta">
+                <div class="discount-tag">-10%</div>
+                <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" class="product-img" onclick="openProductModal('modal-Fern')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Fern'">
+                <h3 class="product-name">Fern Luminasta</h3><span class="product-series">Sousou no Frieren</span>
+                <div class="price-container">
+                    <div class="product-price">765,000 đ</div>
+                    <div class="old-price">850,000 đ</div>
+                </div>
+                <button class="buy-btn" onclick="addToCart('Fern Luminasta', '765,000')">Thêm vào giỏ</button>
+            </div>
+            
+            <div class="product-card" data-tags="frieren elf animefigure sega">
+                <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_1.webp" class="product-img" onclick="openProductModal('modal-Frieren')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Frieren'">
+                <h3 class="product-name">Frieren</h3><span class="product-series">Sousou no Frieren</span><div class="product-price">950,000 đ</div><button class="buy-btn" onclick="addToCart('Frieren', '950,000')">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-tags="goku dragonball shounen banpresto">
+                <img src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" class="product-img" onclick="openProductModal('modal-Goku')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Goku'">
+                <h3 class="product-name">Son Goku Base</h3><span class="product-series">Dragon Ball Z</span><div class="product-price">1,200,000 đ</div><button class="buy-btn" onclick="addToCart('Son Goku Base', '1,200,000')">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-tags="luffy gear5 onepiece nika bandai">
+                <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" class="product-img" onclick="openProductModal('modal-Luffy')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Luffy'">
+                <h3 class="product-name">Luffy Gear 5 (Nika)</h3><span class="product-series">One Piece</span><div class="product-price">1,500,000 đ</div><button class="buy-btn" onclick="addToCart('Luffy Gear 5 (Nika)', '1,500,000')">Thêm vào giỏ</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="pre-order" class="store-section">
+        <div class="section-header"><h2>Pre-Order (Đặt trước)</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="products-grid">
+            <div class="product-card" data-tags="hina bluearchive dress goodsmile">
+                <div class="discount-tag">-20%</div>
+                <img src="Pictures/PRE-ORDER/Blue Archive_Sorasaki_Hina_Dress.jpg" class="product-img" onclick="openProductModal('modal-Hina')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Hina'">
+                <h3 class="product-name">Sorasaki Hina (Dress)</h3><span class="product-series">Blue Archive</span>
+                <div class="price-container">
+                    <div class="product-price">2,800,000 đ</div>
+                    <div class="old-price">3,500,000 đ</div>
+                </div>
+                <button class="buy-btn" onclick="addToCart('Sorasaki Hina', '2,800,000')">Đặt Trước</button>
+            </div>
+            <div class="product-card" data-tags="columbina genshinimpact fatui alter">
+                <img src="Pictures/PRE-ORDER/Genshin Impact_Columbina_Hyposelenia.jpg" class="product-img" onclick="openProductModal('modal-Columbina')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Columbina'">
+                <h3 class="product-name">Columbina (Damselette)</h3><span class="product-series">Genshin Impact</span><div class="product-price">4,200,000 đ</div><button class="buy-btn" onclick="addToCart('Columbina', '4,200,000')">Đặt Trước</button>
+            </div>
+            <div class="product-card" data-tags="shenhe liyue waifu apextoys">
+                <div class="discount-tag">-15%</div>
+                <img src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_1.jpg" class="product-img" onclick="openProductModal('modal-Shenhe')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Shenhe'">
+                <h3 class="product-name">Shenhe 1/7</h3><span class="product-series">Genshin Impact</span>
+                <div class="price-container">
+                    <div class="product-price">3,230,000 đ</div>
+                    <div class="old-price">3,800,000 đ</div>
+                </div>
+                <button class="buy-btn" onclick="addToCart('Shenhe 1/7', '3,230,000')">Đặt Trước</button>
+            </div>
+            <div class="product-card" data-tags="saori bluearchive ariussquad alter">
+                <img src="Pictures/PRE-ORDER/Blue Archive_Joumae_Saori.jpg" class="product-img" onclick="openProductModal('modal-Saori')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Saori'">
+                <h3 class="product-name">Joumae Saori</h3><span class="product-series">Blue Archive</span><div class="product-price">3,100,000 đ</div><button class="buy-btn" onclick="addToCart('Joumae Saori', '3,100,000')">Đặt Trước</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="ti-le-1-7" class="store-section">
+        <div class="section-header"><h2>Mô hình Tỉ lệ 1/7</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="products-grid">
+            <div class="product-card" data-tags="zerotwo darlinginthefranxx maxfactory scale">
+                <div class="discount-tag">-25%</div>
+                <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_1.jpg" class="product-img" onclick="openProductModal('modal-ZeroTwo')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Zero+Two'">
+                <h3 class="product-name">Zero Two 1/7</h3><span class="product-series">Darling in the FranXX</span>
+                <div class="price-container">
+                    <div class="product-price">3,375,000 đ</div>
+                    <div class="old-price">4,500,000 đ</div>
+                </div>
+                <button class="buy-btn" onclick="addToCart('Zero Two 1/7', '3,375,000')">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-tags="makima chainsawman estream scale">
+                <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_1.jpg" class="product-img" onclick="openProductModal('modal-Makima')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Makima'">
+                <h3 class="product-name">Makima 1/7 (Shibuya)</h3><span class="product-series">Chainsaw Man</span><div class="product-price">4,800,000 đ</div><button class="buy-btn" onclick="addToCart('Makima 1/7', '4,800,000')">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-tags="rem rezero nightwizard kadokawa scale">
+                <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_1.jpg" class="product-img" onclick="openProductModal('modal-Rem')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Rem'">
+                <h3 class="product-name">Rem (Night Wizard)</h3><span class="product-series">Re:Zero</span><div class="product-price">3,900,000 đ</div><button class="buy-btn" onclick="addToCart('Rem 1/7', '3,900,000')">Thêm vào giỏ</button>
+            </div>
+            <div class="product-card" data-tags="luotianyi vsinger goodsmile concert scale">
+                <div class="discount-tag">-10%</div>
+                <img src="Pictures/TỈ LỆ 1-7/Vsinger_Luo_Tianyi_1-7_Flowing_Light_Concert_1.jpg" class="product-img" onclick="openProductModal('modal-LuoTianyi')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Luo+Tianyi'">
+                <h3 class="product-name">Luo Tianyi (Concert)</h3><span class="product-series">Vsinger</span>
+                <div class="price-container">
+                    <div class="product-price">3,780,000 đ</div>
+                    <div class="old-price">4,200,000 đ</div>
+                </div>
+                <button class="buy-btn" onclick="addToCart('Luo Tianyi 1/7', '3,780,000')">Thêm vào giỏ</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="phu-kien" class="store-section">
+        <div class="section-header"><h2>Phụ Kiện Trưng Bày</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="products-grid">
+            <div class="product-card" data-tags="hatsunemiku poster3d phukien miku">
+                <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_1.jpg" class="product-img" onclick="openProductModal('modal-MikuPoster')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Miku+Poster'">
+                <h3 class="product-name">Poster 3D Hatsune Miku</h3><span class="product-series">39's Special Day</span><div class="product-price">1,200,000 đ</div><button class="buy-btn" onclick="addToCart('Poster 3D Hatsune Miku', '1,200,000')">Thêm vào giỏ</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-col">
+                    <h4>Atomi Collectibles</h4>
+                    <p><strong>Cửa hàng:</strong> Phân phối mô hình chính hãng</p>
+                    <p><strong>GPKD:</strong> 0123456789 do Sở KH&ĐT cấp</p>
+                    <p><strong>Giờ mở cửa:</strong> 09:00 - 21:00 (Thứ 2 - CN)</p>
+                    <p><strong>Địa chỉ:</strong> Hóc Môn, TP. Hồ Chí Minh</p>
+                    <p><strong>Hotline:</strong> 0322102007</p>
+                    <p><strong>Email:</strong> nguyenhoangnam543210@gmail.com</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Chính sách</h4>
+                    <ul><li><a href="#">Tìm kiếm</a></li><li><a href="#">Giới thiệu</a></li><li><a href="#">Chính sách bảo mật</a></li><li><a href="#">Chính sách đổi trả</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hướng dẫn</h4>
+                    <ul><li><a href="#">Vận chuyển quốc tế</a></li><li><a href="#">Cách bảo quản mô hình</a></li><li><a href="#">Phân biệt hàng chính hãng</a></li></ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hotline hỗ trợ</h4>
+                    <p>Gọi mua hàng: <strong>0322102007</strong></p>
+                    <div class="payment-methods"><span>VISA</span> <span>ATM</span> <span>MOMO</span> <span>COD</span></div>
+                </div>
+            </div>
+            <div style="text-align: center; border-top: 1px solid #333; padding-top: 20px; margin-top: 30px; color: #888;">&copy; 2026 Atomi Collectibles. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <div id="toast-container"></div>
+
+    <div id="loginModal" class="modal-overlay" onclick="if(event.target===this) closeLogin()">
+        <div class="login-box">
+            <span class="close-btn" onclick="closeLogin()">×</span>
+            <h2>Xin chào!</h2>
+            <p>Đăng nhập để nhận ngay ưu đãi từ Atomi</p>
+            <button class="login-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google"> Đăng nhập với Google</button>
+            <button class="login-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft"> Đăng nhập với Microsoft</button>
+            <button class="login-btn btn-apple"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="filter: invert(1);" alt="Apple"> Đăng nhập với Apple</button>
+            <div class="divider">hoặc</div>
+            <input type="email" placeholder="Email của bạn" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
+            <button class="buy-btn">Tiếp tục</button>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal-overlay" onclick="if(event.target===this) closeCart()">
+        <div class="login-box" style="width: 500px; max-width: 95%;">
+            <span class="close-btn" onclick="closeCart()">×</span>
+            <h2 style="color: var(--torii-red); margin-bottom: 25px;">Giỏ Hàng Của Bạn</h2>
+            
+            <div id="cartItems" style="text-align: left; max-height: 350px; overflow-y: auto; margin-bottom: 20px; padding-right: 10px;">
+                <p style="text-align: center; color: #888;">Giỏ hàng đang trống. Hãy thêm sản phẩm nhé!</p>
+            </div>
+            
+            <button class="btn-buy" style="width: 100%; padding: 15px 0;" onclick="alert('Chuyển đến trang thanh toán an toàn...')">Tiến hành thanh toán</button>
+        </div>
+    </div>
+
+    <div id="modal-A1" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-A1')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-A1')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
+                    <img id="main-img-A1" src="Pictures/Banner/Yae_Miko.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/Banner/Yae_Miko.jpg" onclick="changeModalImage('main-img-A1', this.src)">
+                    <img src="Pictures/Banner/Yae_Miko_1.jpg" onclick="changeModalImage('main-img-A1', this.src)">
+                    <img src="Pictures/Banner/Yae_Miko_2.jpg" onclick="changeModalImage('main-img-A1', this.src)">
+                    <img src="Pictures/Banner/Yae_Miko_3.jpg" onclick="changeModalImage('main-img-A1', this.src)">
+                    <img src="Pictures/Banner/Yae_Miko_4.jpg" onclick="changeModalImage('main-img-A1', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Yae Miko (Genshin Impact) 1/7</h2>
+                <div class="price">5,500,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Apex Toys</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC & ABS</span></div>
+                <p class="desc">Tuyệt tác mô hình Yae Miko - Đền chủ đền Narukami từ tựa game đình đám Genshin Impact. Chi tiết trang phục tinh xảo, kèm hiệu ứng hoa đào và hồ ly vô cùng bắt mắt.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Yae Miko 1/7', '5,500,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#YaeMiko</a> <a href="#">#GenshinImpact</a> <a href="#">#ApexToys</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-A2" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-A2')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-A2')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-preorder">PRE-ORDER</span>
+                    <img id="main-img-A2" src="Pictures/Banner/Ambience_Synesthesia_1.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/Banner/Ambience_Synesthesia_1.jpg" onclick="changeModalImage('main-img-A2', this.src)">
+                    <img src="Pictures/Banner/Ambience_Synesthesia_2.jpg" onclick="changeModalImage('main-img-A2', this.src)">
+                    <img src="Pictures/Banner/Ambience_Synesthesia_3.jpg" onclick="changeModalImage('main-img-A2', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Arknights - Ambience Synesthesia</h2>
+                <div class="price">4,800,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> APEX</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC & ABS cao cấp</span></div>
+                <p class="desc">Bộ sưu tập phiên bản hòa nhạc Ambience Synesthesia cực kỳ sang trọng từ Arknights. Thiết kế trang phục dạ hội độc đáo, chất liệu cao cấp mang đến vẻ đẹp lộng lẫy.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Arknights Ambience', '4,800,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Arknights</a> <a href="#">#Concert</a> <a href="#">#PreOrder</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Fern" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Fern')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Fern')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
+                    <img id="main-img-fern" src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" onclick="changeModalImage('main-img-fern', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_2.webp" onclick="changeModalImage('main-img-fern', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Fern (Luminasta) - Sousou no Frieren</h2>
+                <div class="modal-price-container">
+                    <div class="price">765,000 đ</div>
+                    <div class="modal-old-price">850,000 đ</div>
+                </div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> SEGA</span><span><strong>Loại:</strong> Prize Figure (Luminasta)</span><span><strong>Chất liệu:</strong> Nhựa PVC</span></div>
+                <p class="desc">Mô hình Fern từ dòng Luminasta cực kỳ tinh tế, tái hiện hoàn hảo vẻ đẹp trưởng thành và pháp trượng của cô nàng pháp sư.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Fern Luminasta', '765,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Fern</a> <a href="#">#Frieren</a> <a href="#">#SEGA</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Frieren" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Frieren')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Frieren')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
+                    <img id="main-img-frieren" src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_1.webp" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_1.webp" onclick="changeModalImage('main-img-frieren', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_2.webp" onclick="changeModalImage('main-img-frieren', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_3.webp" onclick="changeModalImage('main-img-frieren', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Frieren - Sousou no Frieren</h2>
+                <div class="price">950,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> SEGA</span><span><strong>Loại:</strong> Prize Figure</span><span><strong>Chất liệu:</strong> PVC</span></div>
+                <p class="desc">Pháp sư nghìn năm Frieren bước ra đời thực với các chi tiết sống động. Sản phẩm đi kèm chiếc rương mô phỏng y hệt trong chuyến hành trình bất tận của cô.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Frieren', '950,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Frieren</a> <a href="#">#Elf</a> <a href="#">#AnimeFigure</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Goku" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Goku')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Goku')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
+                    <img id="main-img-goku" src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" onclick="changeModalImage('main-img-goku', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_2.jpg" onclick="changeModalImage('main-img-goku', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_3.jpg" onclick="changeModalImage('main-img-goku', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_4.jpg" onclick="changeModalImage('main-img-goku', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Son Goku Base (Dragon Ball Z)</h2>
+                <div class="price">1,200,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Banpresto</span><span><strong>Loại:</strong> Prize Figure Cao cấp</span><span><strong>Chất liệu:</strong> PVC & ABS</span></div>
+                <p class="desc">Mô hình Goku sắc nét thể hiện thần thái và cơ bắp mạnh mẽ của chiến binh Saiyan. Sơn phủ chất lượng cao làm nổi bật từng góc cạnh.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Son Goku Base', '1,200,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Goku</a> <a href="#">#DragonBall</a> <a href="#">#Shounen</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Luffy" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Luffy')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Luffy')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
+                    <img id="main-img-luffy" src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" onclick="changeModalImage('main-img-luffy', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_2.jpg" onclick="changeModalImage('main-img-luffy', this.src)">
+                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_3.jpg" onclick="changeModalImage('main-img-luffy', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Luffy Gear 5 (Thần Mặt Trời Nika)</h2>
+                <div class="price">1,500,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Bandai</span><span><strong>Loại:</strong> Action Figure</span><span><strong>Chất liệu:</strong> Nhựa PVC, ABS cứng</span></div>
+                <p class="desc">Trạng thái thức tỉnh trái ác quỷ tối thượng của Luffy - Gear 5. Tái hiện nụ cười đặc trưng và hiệu ứng mây khói trắng uốn lượn.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Luffy Gear 5', '1,500,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Luffy</a> <a href="#">#Gear5</a> <a href="#">#OnePiece</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Hina" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Hina')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Hina')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-preorder">PRE-ORDER</span>
+                    <img id="main-img-hina" src="Pictures/PRE-ORDER/Blue Archive_Sorasaki_Hina_Dress.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/PRE-ORDER/Blue Archive_Sorasaki_Hina_Dress.jpg" onclick="changeModalImage('main-img-hina', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Sorasaki Hina (Dress Ver.) - Blue Archive</h2>
+                <div class="modal-price-container">
+                    <div class="price">2,800,000 đ</div>
+                    <div class="modal-old-price">3,500,000 đ</div>
+                </div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Good Smile</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> Nhựa cao cấp</span></div>
+                <p class="desc">Hina trưởng kỷ luật đầy quyến rũ trong trang phục váy dạ hội tinh xảo. Đây là phiên bản Pre-order cực kỳ giới hạn dành cho các "Sensei".</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Sorasaki Hina', '2,800,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán cọc...')">Đặt trước ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Hina</a> <a href="#">#BlueArchive</a> <a href="#">#Dress</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Columbina" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Columbina')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Columbina')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-preorder">PRE-ORDER</span>
+                    <img id="main-img-columbina" src="Pictures/PRE-ORDER/Genshin Impact_Columbina_Hyposelenia.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/PRE-ORDER/Genshin Impact_Columbina_Hyposelenia.jpg" onclick="changeModalImage('main-img-columbina', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Columbina (Damselette) - Genshin Impact</h2>
+                <div class="price">4,200,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Alter</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC & ABS</span></div>
+                <p class="desc">Quan Chấp Hành Fatui bí ẩn Columbina với đôi cánh thiên thần ma mị. Chất lượng sơn phủ đỉnh cao và chi tiết sắc nét tạo nên một tác phẩm nghệ thuật.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Columbina', '4,200,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán cọc...')">Đặt trước ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Columbina</a> <a href="#">#GenshinImpact</a> <a href="#">#Fatui</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Shenhe" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Shenhe')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Shenhe')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-preorder">PRE-ORDER</span>
+                    <img id="main-img-shenhe" src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_1.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_1.jpg" onclick="changeModalImage('main-img-shenhe', this.src)">
+                    <img src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_2.jpg" onclick="changeModalImage('main-img-shenhe', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Shenhe 1/7 - Genshin Impact</h2>
+                <div class="modal-price-container">
+                    <div class="price">3,230,000 đ</div>
+                    <div class="modal-old-price">3,800,000 đ</div>
+                </div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Apex Toys</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> Nhựa PVC</span></div>
+                <p class="desc">Nữ đệ tử của Lưu Vân Tá Phong Chân Quân với vẻ đẹp thanh tao, thoát tục. Sở hữu thân hình tỉ lệ chuẩn và trang phục bám sát nguyên tác game.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Shenhe 1/7', '3,230,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán cọc...')">Đặt trước ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Shenhe</a> <a href="#">#Liyue</a> <a href="#">#Waifu</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Saori" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Saori')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Saori')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-preorder">PRE-ORDER</span>
+                    <img id="main-img-saori" src="Pictures/PRE-ORDER/Blue Archive_Joumae_Saori.jpg" class="product-main-img">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/PRE-ORDER/Blue Archive_Joumae_Saori.jpg" onclick="changeModalImage('main-img-saori', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Joumae Saori - Blue Archive</h2>
+                <div class="price">3,100,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Alter</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC & ABS</span></div>
+                <p class="desc">Đội trưởng Arius Squad với phong thái chiến đấu lạnh lùng. Mô hình đi kèm khẩu súng trường thương hiệu và các phụ kiện chiến đấu siêu ngầu.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Joumae Saori', '3,100,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán cọc...')">Đặt trước ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Saori</a> <a href="#">#BlueArchive</a> <a href="#">#AriusSquad</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ZeroTwo" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-ZeroTwo')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-ZeroTwo')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
+                    <img id="main-img-zerotwo" src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_1.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_2.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_3.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_4.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Zero Two 1/7 - Darling in the FranXX</h2>
+                <div class="modal-price-container">
+                    <div class="price">3,375,000 đ</div>
+                    <div class="modal-old-price">4,500,000 đ</div>
+                </div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Max Factory</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC</span></div>
+                <p class="desc">Bản sao hoàn hảo của Zero Two với biểu cảm rạng rỡ và bộ trang phục ôm sát khoe trọn đường cong cơ thể. Một tác phẩm cực kỳ sinh động và sắc nét trong từng chi tiết nhỏ.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Zero Two 1/7', '3,375,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#ZeroTwo</a> <a href="#">#DarlingInTheFranxx</a> <a href="#">#MaxFactory</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Makima" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Makima')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Makima')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
+                    <img id="main-img-makima" src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_1.jpg" onclick="changeModalImage('main-img-makima', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_2.jpg" onclick="changeModalImage('main-img-makima', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_3.jpg" onclick="changeModalImage('main-img-makima', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_4.jpg" onclick="changeModalImage('main-img-makima', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Makima 1/7 - Shibuya Scramble</h2>
+                <div class="price">4,800,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> eStream</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC & ABS</span></div>
+                <p class="desc">Qủy Chi Phối Makima được tái hiện trong phân cảnh đi trên đống đổ nát tại Shibuya. Tỉ lệ 1/7 cao cấp với các hiệu ứng vệt máu và thần thái vô cùng áp đảo.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Makima 1/7', '4,800,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Makima</a> <a href="#">#ChainsawMan</a> <a href="#">#eStream</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-Rem" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-Rem')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-Rem')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
+                    <img id="main-img-rem" src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_1.jpg" onclick="changeModalImage('main-img-rem', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_2.jpg" onclick="changeModalImage('main-img-rem', this.src)">
+                    <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_3.jpg" onclick="changeModalImage('main-img-rem', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Rem (Phantom Night Wizard) 1/7</h2>
+                <div class="price">3,900,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Kadokawa</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC & ABS</span></div>
+                <p class="desc">Cô nàng hầu gái Rem trong trang phục phù thủy đêm vô cùng ma mị và đáng yêu. Các chi tiết váy, nón và phụ kiện lơ lửng được chế tác cực kỳ sống động, mang đậm không khí lễ hội phép thuật.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Rem 1/7', '3,900,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#Rem</a> <a href="#">#ReZero</a> <a href="#">#NightWizard</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-LuoTianyi" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-LuoTianyi')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-LuoTianyi')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
+                    <img id="main-img-luotianyi" src="Pictures/TỈ LỆ 1-7/Vsinger_Luo_Tianyi_1-7_Flowing_Light_Concert_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/TỈ LỆ 1-7/Vsinger_Luo_Tianyi_1-7_Flowing_Light_Concert_1.jpg" onclick="changeModalImage('main-img-luotianyi', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Mô hình Luo Tianyi 1/7 (Flowing Light Concert)</h2>
+                <div class="modal-price-container">
+                    <div class="price">3,780,000 đ</div>
+                    <div class="modal-old-price">4,200,000 đ</div>
+                </div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Good Smile Arts</span><span><strong>Loại:</strong> Scale Figure 1/7</span><span><strong>Chất liệu:</strong> PVC & ABS</span></div>
+                <p class="desc">Ca sĩ ảo đình đám Luo Tianyi bước lên sân khấu Flowing Light Concert với bộ váy hoa lệ rực rỡ. Từng chi tiết ánh sáng, dải lụa mềm mại tạo nên một khung cảnh biểu diễn lộng lẫy và đẳng cấp.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Luo Tianyi 1/7', '3,780,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#LuoTianyi</a> <a href="#">#Vsinger</a> <a href="#">#GoodSmile</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-MikuPoster" class="product-detail-modal" onclick="if(event.target===this) closeProductModal('modal-MikuPoster')">
+        <div class="product-detail-card">
+            <span class="close-btn" onclick="closeProductModal('modal-MikuPoster')">×</span>
+            <div class="product-gallery">
+                <div class="main-img-container">
+                    <span class="product-badge badge-accessory">PHỤ KIỆN</span>
+                    <img id="main-img-mikuposter" src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/fff5f7/CD5C5C'">
+                </div>
+                <div class="product-thumbnails">
+                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_1.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
+                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_2.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
+                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_3.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
+                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_4.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
+                </div>
+            </div>
+            <div class="product-info">
+                <h2>Poster 3D Hatsune Miku (39's Special Day)</h2>
+                <div class="price">1,200,000 đ</div>
+                <div class="product-meta"><span><strong>Thương hiệu:</strong> Khác</span><span><strong>Loại:</strong> Tranh 3D nổi</span><span><strong>Chất liệu:</strong> Nhựa PET cao cấp</span></div>
+                <p class="desc">Phụ kiện trưng bày độc đáo: Poster 3D Hatsune Miku kỷ niệm ngày 39's Special Day. Thiết kế hiệu ứng nổi 3 chiều sắc nét, làm bừng sáng góc sưu tầm của bạn. Phù hợp đặt sau các mô hình tủ kính.</p>
+                <div class="product-actions"><button class="btn-cart" onclick="addToCart('Poster 3D Hatsune Miku', '1,200,000')">Thêm vào giỏ</button><button class="btn-buy" onclick="alert('Chuyển đến trang thanh toán...')">Mua ngay</button></div>
+                <div class="product-tags"><strong>Từ khóa:</strong> <a href="#">#HatsuneMiku</a> <a href="#">#Poster3D</a> <a href="#">#PhuKien</a></div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://poe.com/invite/eb48a4eb36fe4c61b3792980ec7b16eb" target="_blank" class="ai-floating-btn">
+        <img src="Pictures/logo_emblem.png" alt="AI" onerror="this.src='Pictures/Logo final.jpg'">
+        Trò chuyện cùng AI Atomi
+    </a>
+
+    <button id="backToTopBtn" onclick="scrollToTop()" title="Lên đầu trang">⬆</button>
+
+    <script>
+        // Banner Slider
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
+
+        function showSlide(index) {
+            slides[currentSlideIndex].classList.remove('active');
+            dots[currentSlideIndex].classList.remove('active');
+            currentSlideIndex = index;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+            slides[currentSlideIndex].classList.add('active');
+            dots[currentSlideIndex].classList.add('active');
+        }
+
+        function changeSlide(direction) { showSlide(currentSlideIndex + direction); resetAutoPlay(); }
+        function goToSlide(index) { showSlide(index); resetAutoPlay(); }
+        function autoPlay() { slideInterval = setInterval(() => { changeSlide(1); }, 5000); }
+        function resetAutoPlay() { clearInterval(slideInterval); autoPlay(); }
+        autoPlay();
+
+        // Modal Control
+        function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
+        function openProductModal(modalId) { document.getElementById(modalId).style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeProductModal(modalId) { document.getElementById(modalId).style.display = 'none'; document.body.style.overflow = 'auto'; }
+        function changeModalImage(mainImgId, newSrc) { document.getElementById(mainImgId).src = newSrc; }
+
+        // Zoom
+        document.querySelectorAll('.main-img-container').forEach(container => {
+            const img = container.querySelector('.product-main-img');
+            container.addEventListener('mousemove', function(e) {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+                img.style.transform = 'scale(1.8)';
+            });
+            container.addEventListener('mouseleave', function() {
+                img.style.transformOrigin = 'center center';
+                img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Search
+        function filterProducts() {
+            let searchInput = document.getElementById('searchInput').value.toLowerCase().replace('#', '').trim();
+            let sections = document.querySelectorAll('.store-section');
+            
+            sections.forEach(section => {
+                let cards = section.querySelectorAll('.product-card');
+                let hasVisibleCard = false; 
+                
+                cards.forEach(card => {
+                    let tags = card.getAttribute('data-tags') ? card.getAttribute('data-tags').toLowerCase() : '';
+                    let name = card.querySelector('.product-name').innerText.toLowerCase();
+                    
+                    if (searchInput !== "" && tags === "") { card.style.display = 'none'; return; }
+                    if (tags.includes(searchInput) || name.includes(searchInput)) {
+                        card.style.display = 'block'; hasVisibleCard = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                if(searchInput === "") { section.style.display = 'block'; } 
+                else { section.style.display = hasVisibleCard ? 'block' : 'none'; }
+            });
+        }
+
+        // Cart & Timer
+        let cartTotalItems = 0;
+        let cartItemsList = [];
+
+        function addToCart(productName, price) {
+            cartTotalItems++;
+            document.getElementById('cartCount').innerText = `🛒 Giỏ hàng (${cartTotalItems})`;
+            showToast(`Đã thêm thành công: ${productName}`);
+            const expiryTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+            cartItemsList.push({name: productName, price: price, expiry: expiryTime});
+            updateCartModal();
+        }
+
+        function removeFromCart(index) {
+            cartItemsList.splice(index, 1);
+            cartTotalItems--;
+            document.getElementById('cartCount').innerText = `🛒 Giỏ hàng (${cartTotalItems})`;
+            updateCartModal();
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `✅ <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
+
+        function updateCartModal() {
+            const cartContainer = document.getElementById('cartItems');
+            if (cartItemsList.length === 0) {
+                cartContainer.innerHTML = '<p style="text-align: center; color: #888;">Giỏ hàng đang trống. Hãy thêm sản phẩm nhé!</p>';
+                return;
+            }
+            let html = ''; let totalMoney = 0;
+            cartItemsList.forEach((item, index) => {
+                html += `<div class="cart-item-row">
+                            <div class="cart-item-header">
+                                <span style="color: var(--text-dark); flex: 1; font-weight: bold;">${item.name}</span>
+                                <span style="color: var(--torii-red); font-weight: bold; margin-right: 15px;">${item.price} đ</span>
+                                <button class="btn-remove" onclick="removeFromCart(${index})">Hủy</button>
+                            </div>
+                            <div class="timer-badge">
+                                ⏳ Giữ hàng trong: <span class="item-countdown" data-expiry="${item.expiry}">24:00:00</span>
+                            </div>
+                         </div>`;
+                let cleanPrice = item.price.replace(/,/g, '');
+                totalMoney += parseInt(cleanPrice);
+            });
+            html += `<div style="display: flex; justify-content: space-between; padding: 15px 0; font-size: 1.2em; font-weight: bold;">
+                        <span>Tổng cộng:</span>
+                        <span style="color: var(--torii-red);">${totalMoney.toLocaleString('vi-VN')} đ</span>
+                     </div>`;
+            cartContainer.innerHTML = html;
+        }
+
+        function openCart() { document.getElementById('cartModal').style.display = 'flex'; }
+        function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
+
+        setInterval(() => {
+            const timers = document.querySelectorAll('.item-countdown');
+            const now = new Date().getTime();
+            timers.forEach(timer => {
+                const expiry = parseInt(timer.getAttribute('data-expiry'));
+                const distance = expiry - now;
+                if (distance < 0) {
+                    timer.innerText = "HẾT HẠN"; timer.style.color = "red";
+                } else {
+                    let h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    let s = Math.floor((distance % (1000 * 60)) / 1000);
+                    h = h.toString().padStart(2, '0');
+                    m = m.toString().padStart(2, '0');
+                    s = s.toString().padStart(2, '0');
+                    timer.innerText = `${h}:${m}:${s}`;
+                }
+            });
+        }, 1000);
+
+        // Back to Top
+        window.addEventListener('scroll', function() {
+            let topBtn = document.getElementById("backToTopBtn");
+            if (window.scrollY > 300) { topBtn.style.opacity = "1"; topBtn.style.visibility = "visible"; } 
+            else { topBtn.style.opacity = "0"; topBtn.style.visibility = "hidden"; }
+        });
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    </script>
+</body>
+</html>
