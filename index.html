@@ -430,15 +430,16 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const sections = document.querySelectorAll("section");
+            // Nâng cấp: Cho quét cả section và thẻ có id="contact" (footer)
+            const sections = document.querySelectorAll("section, #contact");
             const navLinks = document.querySelectorAll(".nav-pills a:not(.nav-store-btn)");
 
             window.addEventListener("scroll", () => {
                 let current = "";
                 sections.forEach((section) => {
                     const sectionTop = section.offsetTop;
-                    // Trừ hao 200px để menu sáng sớm hơn khi vừa chạm tới rìa section
-                    if (pageYOffset >= (sectionTop - 200)) {
+                    // Trừ hao 250px để menu nhận diện mượt hơn khi chạm tới rìa
+                    if (pageYOffset >= (sectionTop - 250)) {
                         current = section.getAttribute("id");
                     }
                 });
