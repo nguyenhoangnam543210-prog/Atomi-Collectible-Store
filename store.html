@@ -862,10 +862,25 @@
         </div>
     </div>
 
-    <a href="https://poe.com/invite/eb48a4eb36fe4c61b3792980ec7b16eb" target="_blank" class="ai-floating-btn">
-        <img src="pictures/logo_emblem.png" alt="AI" onerror="this.src='pictures/logo_final.jpg'">
-        Trò chuyện cùng AI Atomi
-    </a>
+<div id="ai-chat-widget" style="position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end;">
+        
+        <div id="ai-chat-frame" style="display: none; width: 380px; height: 550px; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); overflow: hidden; margin-bottom: 20px; border: 2px solid var(--torii-red);">
+            <div style="background: var(--torii-red); color: white; padding: 12px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <img src="pictures/logo_emblem.png" onerror="this.src='https://placehold.co/20x20/fff/CD5C5C'" style="width: 20px; height: 20px; border-radius: 50%;"> 
+                    Trợ lý Atomi AI
+                </span>
+                <span style="cursor: pointer; font-size: 18px;" onclick="document.getElementById('ai-chat-frame').style.display='none'">✖</span>
+            </div>
+            
+            <iframe src="https://poe.com/Atomi.KeoLy" width="100%" height="100%" frameborder="0" style="border:none;"></iframe>
+            
+        </div>
+
+        <button onclick="let frame = document.getElementById('ai-chat-frame'); frame.style.display = frame.style.display === 'none' ? 'block' : 'none';" style="background: var(--torii-red); color: white; border: none; padding: 15px 25px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(205, 92, 92, 0.4); display: flex; align-items: center; gap: 10px; transition: 0.3s;">
+            <img src="pictures/atomi_keoLy.jpg" alt="AI" onerror="this.src='pictures/logo_final.jpg'" style="width: 25px; height: 25px; border-radius: 50%; background: white;"> 
+        </button>
+    </div>
 
     <button id="backToTopBtn" onclick="scrollToTop()" title="Lên đầu trang">⬆</button>
 
