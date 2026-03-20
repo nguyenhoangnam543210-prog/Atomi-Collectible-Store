@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atomi Collectibles | Anime Figure Store</title>
-    <link rel="icon" type="image/png" href="Pictures/logo_emblem.png">
+    <link rel="icon" type="image/png" href="pictures/logo_emblem.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
     
@@ -12,7 +12,7 @@
         /* NHÚNG PHÔNG CHỮ CHUYÊN BIỆT CỦA NEM CHO LOGO */
         @font-face {
             font-family: 'SVNRomaji';
-            src: url('Pictures/SVN-Romaji.ttf') format('truetype');
+            src: url('pictures/svn_romaji.ttf') format('truetype');
         }
 
         :root {
@@ -34,7 +34,7 @@
             line-height: 1.6;
             
             /* ẢNH BACKGROUND NỀN */
-            background-image: url('Pictures/Background 1.jpg');
+            background-image: url('pictures/background_1.jpg');
             background-size: cover;          
             background-position: center top; 
             background-attachment: fixed;    
@@ -68,14 +68,31 @@
         .nav-store-btn { color: var(--torii-red) !important; border: 2px solid var(--sakura-pink) !important; background-color: var(--sakura-light); }
         .nav-store-btn:hover { background-color: var(--torii-red) !important; color: white !important; border-color: var(--torii-red) !important; }
 
-        /* KHUNG CHỨA NỘI DUNG */
-        section { padding: 60px 20px; position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; scroll-margin-top: 100px; }
+        /* KHUNG CHỨA NỘI DUNG BAO TRỌN 1 MÀN HÌNH */
+        section { 
+            min-height: 100vh; /* Ma thuật nằm ở đây: Cao bằng 100% màn hình */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Căn giữa theo chiều dọc */
+            align-items: center; /* Căn giữa theo chiều ngang */
+            padding: 80px 20px 40px; /* Chừa 80px ở trên để không bị thanh menu đè lên */
+            box-sizing: border-box;
+            position: relative; 
+            z-index: 1; 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            scroll-margin-top: 80px; 
+        }
+        
+        /* Đảm bảo nội dung bên trong chiếm đủ chiều rộng */
+        .section-wrapper { width: 100%; }
+
         #campaign { max-width: 1200px; }
         .section-title { text-align: center; font-size: 2.5em; margin-bottom: 40px; background: rgba(255,255,255,0.85); display: inline-block; padding: 10px 30px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
-        .title-container { text-align: center; margin-bottom: 20px; } 
+        .title-container { text-align: center; margin-bottom: 20px; width: 100%; } 
 
         /* TRANG CHỦ (HOME) */
-        #home { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 85vh; padding-top: 120px; }
+        #home { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .center-logo-frame { width: 150px; height: 150px; margin-bottom: 25px; border-radius: 50%; padding: 8px; background: #ffffff; border: 2px solid var(--sakura-pink); box-shadow: 0 8px 25px rgba(205, 92, 92, 0.15); display: flex; align-items: center; justify-content: center; animation: float 3s infinite ease-in-out; }
         .center-logo-frame img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -92,12 +109,12 @@
         .btn-secondary:hover { background-color: white; color: var(--text-dark); transform: translateY(-5px); }
 
         /* VỀ CHÚNG TÔI (ABOUT) */
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 20px; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 20px; width: 100%;}
         .card { background: var(--card-bg); backdrop-filter: blur(10px); padding: 40px 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-bottom: 5px solid white; transition: transform 0.3s; }
         .card:hover { transform: translateY(-10px); border-bottom: 5px solid var(--torii-red); }
 
         /* CÂU CHUYỆN THƯƠNG HIỆU (STORY) */
-        .story-content { display: flex; gap: 50px; align-items: center; justify-content: space-between; }
+        .story-content { display: flex; gap: 50px; align-items: center; justify-content: space-between; width: 100%;}
         .story-text { flex: 1; font-size: 1.15em; text-align: justify; background: var(--card-bg); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .story-text strong { color: var(--torii-red); }
         
@@ -167,7 +184,7 @@
             .nav-pills a { white-space: nowrap; font-size: 0.85em; padding: 6px 15px;}
             
             /* 2. Khoảng cách Chung */
-            section { padding: 40px 15px; scroll-margin-top: 140px; }
+            section { padding: 40px 15px; min-height: auto; scroll-margin-top: 140px; }
             .section-title { font-size: 1.8em; padding: 8px 20px; margin-bottom: 25px;}
 
             /* 3. Hero Section */
@@ -210,7 +227,7 @@
 
     <header>
         <a href="#home" class="brand-badge">
-            <img src="Pictures/logo_emblem.png" alt="Atomi Logo" onerror="this.src='Pictures/Logo final.jpg'">
+            <img src="pictures/logo_emblem.png" alt="Atomi Logo" onerror="this.src='pictures/logo_final.jpg'">
             <span class="brand-text">Atomi</span>
         </a>
         <nav class="nav-pills">
@@ -224,80 +241,87 @@
     </header>
 
     <section id="home">
-        <div class="center-logo-frame">
-            <img src="Pictures/logo_emblem.png" alt="Atomi Collectibles" onerror="this.src='Pictures/Logo final.jpg'">
+        <div class="section-wrapper" style="text-align: center;">
+            <div class="center-logo-frame" style="margin: 0 auto 25px;">
+                <img src="pictures/logo_emblem.png" alt="Atomi Collectibles" onerror="this.src='pictures/logo_final.jpg'">
+            </div>
+            
+            <h1 class="premium-tagline">
+                Nơi biến đam mê 2D thành <br>
+                <span class="highlight">một bộ sưu tập 3D đẳng cấp</span>
+            </h1>
+            
+            <p class="home-desc" style="display: inline-block;">Khám phá thế giới anime figure chính hãng, minh bạch và tinh tế với sự đồng hành của chuyên gia AI Atomi.</p>
+            
+            <div class="hero-buttons">
+                <a href="store.html" class="cta-button btn-primary">🛒 Ghé Cửa Hàng Ngay</a>
+                <a href="https://poe.com/invite/eb48a4eb36fe4c61b3792980ec7b16eb" target="_blank" class="cta-button btn-secondary">🤖 Trò chuyện AI Atomi</a>
+            </div>
         </div>
-        
-        <h1 class="premium-tagline">
-            Nơi biến đam mê 2D thành <br>
-            <span class="highlight">một bộ sưu tập 3D đẳng cấp</span>
-        </h1>
-        
-        <p class="home-desc">Khám phá thế giới anime figure chính hãng, minh bạch và tinh tế với sự đồng hành của chuyên gia AI Atomi.</p>
-        
-        <div class="hero-buttons">
-            <a href="store.html" class="cta-button btn-primary">🛒 Ghé Cửa Hàng Ngay</a>
-            <a href="https://poe.com/invite/eb48a4eb36fe4c61b3792980ec7b16eb" target="_blank" class="cta-button btn-secondary">🤖 Trò chuyện AI Atomi</a>
-        </div>
-        
     </section>
 
     <section id="about">
-        <div class="cards-grid">
-            <div class="card">
-                <h3>✨ Tinh tế</h3>
-                <p>Gu thẩm mỹ cao cấp, không gian sắc hoa anh đào tĩnh lặng tôn vinh.</p>
-            </div>
-            <div class="card">
-                <h3>🧠 Am hiểu</h3>
-                <p>Uyên Bác - kiến thức anime/manga qua năng lực của trợ lý ảo AI chuyên sâu.</p>
-            </div>
-            <div class="card">
-                <h3>🛡️ Chân thực</h3>
-                <p>Cam kết tuyệt đối nguồn gốc chính hãng, minh bạch thông tin, xóa bỏ nỗi lo hàng giả.</p>
-            </div>
-            <div class="card">
-                <h3>❤️ Đam mê</h3>
-                <p>Luôn đồng điệu và chia sẻ tình yêu mãnh liệt với văn hóa 2D cùng cộng đồng.</p>
+        <div class="section-wrapper">
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>✨ Tinh tế</h3>
+                    <p>Gu thẩm mỹ cao cấp, không gian sắc hoa anh đào tĩnh lặng tôn vinh.</p>
+                </div>
+                <div class="card">
+                    <h3>🧠 Am hiểu</h3>
+                    <p>Uyên Bác - kiến thức anime/manga qua năng lực của trợ lý ảo AI chuyên sâu.</p>
+                </div>
+                <div class="card">
+                    <h3>🛡️ Chân thực</h3>
+                    <p>Cam kết tuyệt đối nguồn gốc chính hãng, minh bạch thông tin, xóa bỏ nỗi lo hàng giả.</p>
+                </div>
+                <div class="card">
+                    <h3>❤️ Đam mê</h3>
+                    <p>Luôn đồng điệu và chia sẻ tình yêu mãnh liệt với văn hóa 2D cùng cộng đồng.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="story">
-        <div class="title-container"><h2 class="section-title">Hành Trình Chạm Tay Vào Giấc Mơ</h2></div>
-        <div class="story-content">
-            <div class="story-text">
-                <p>Mỗi một nhân vật anime không chỉ là nét vẽ trên trang giấy hay những pixel trên màn hình phẳng.</p>
-                <p>Đó là những giấc mơ, là tuổi trẻ, và là nguồn cảm hứng mãnh liệt cất lên từ thế giới 2D.</p>
-                <p>Tại Atomi, mỗi mô hình là một tác phẩm nghệ thuật, mang trong mình linh hồn của người nghệ nhân và câu chuyện của nhân vật.</p>
-                <p>Cùng với sự đồng hành của trợ lý ảo AI "Atomi", chúng tôi tự hào dẫn lối bạn bước vào một không gian sưu tầm minh bạch, tinh tế và đầy cảm xúc.</p>
-                <p><strong>Cổng Torii & Hoa Anh Đào:</strong> Sự giao thoa giữa thế giới tưởng tượng và hiện thực, kết hợp với họa tiết sóng Seigaiha tượng trưng cho niềm đam mê sưu tầm trường tồn.</p>
-            </div>
-            <div class="story-showcase-container">
-                <div class="showcase-figures">
-                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" alt="Anime Figure 1" class="fig-side fig-left" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
-                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" alt="Anime Figure 2" class="fig-center" onerror="this.src='https://placehold.co/250x350/f6d7dd/CD5C5C'">
-                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" alt="Anime Figure 3" class="fig-side fig-right" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
+        <div class="section-wrapper">
+            <div class="title-container"><h2 class="section-title">Hành Trình Chạm Tay Vào Giấc Mơ</h2></div>
+            <div class="story-content">
+                <div class="story-text">
+                    <p>Mỗi một nhân vật anime không chỉ là nét vẽ trên trang giấy hay những pixel trên màn hình phẳng.</p>
+                    <p>Đó là những giấc mơ, là tuổi trẻ, và là nguồn cảm hứng mãnh liệt cất lên từ thế giới 2D.</p>
+                    <p>Tại Atomi, mỗi mô hình là một tác phẩm nghệ thuật, mang trong mình linh hồn của người nghệ nhân và câu chuyện của nhân vật.</p>
+                    <p>Cùng với sự đồng hành của trợ lý ảo AI "Atomi", chúng tôi tự hào dẫn lối bạn bước vào một không gian sưu tầm minh bạch, tinh tế và đầy cảm xúc.</p>
+                    <p><strong>Cổng Torii & Hoa Anh Đào:</strong> Sự giao thoa giữa thế giới tưởng tượng và hiện thực, kết hợp với họa tiết sóng Seigaiha tượng trưng cho niềm đam mê sưu tầm trường tồn.</p>
                 </div>
-                <p style="font-family: 'Noto Serif JP', serif; font-size: 1.2em; font-weight: bold; margin: 0;">Atomi Art Showcase</p>
+                <div class="story-showcase-container">
+                    <div class="showcase-figures">
+                        <img src="pictures/hang_co_san/sousou_no_frieren_fern_luminasta_1.webp" alt="Anime Figure 1" class="fig-side fig-left" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
+                        <img src="pictures/hang_co_san/goku_figure_1.jpg" alt="Anime Figure 2" class="fig-center" onerror="this.src='https://placehold.co/250x350/f6d7dd/CD5C5C'">
+                        <img src="pictures/hang_co_san/luffy_nika_figure_1.jpg" alt="Anime Figure 3" class="fig-side fig-right" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
+                    </div>
+                    <p style="font-family: 'Noto Serif JP', serif; font-size: 1.2em; font-weight: bold; margin: 0;">Atomi Art Showcase</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="campaign">
-        <div class="title-container"><h2 class="section-title">Chiến Dịch Nổi Bật</h2></div>
-        
-        <div class="campaign-card">
-            <div class="campaign-image">
-                <img src="Pictures/poster_event.jpg" alt="Bản Giao Hưởng Figure & Anime" onerror="this.src='https://placehold.co/1200x600/f1e4df/CD5C5C?text=Banner+Sự+Kiện'">
-            </div>
+        <div class="section-wrapper">
+            <div class="title-container"><h2 class="section-title">Chiến Dịch Nổi Bật</h2></div>
             
-            <div class="campaign-info">
-                <h3>Bản Giao Hưởng Figure & Anime</h3>
-                <p>Chào mừng chương mới cùng Atomi Collectibles! Khởi đầu một chặng đường sưu tầm đầy hứa hẹn với những siêu phẩm mô hình sắc nét nhất từ các thương hiệu hàng đầu Nhật Bản.</p>
-                <p>Tận hưởng <strong>mức ưu đãi lên đến 25%</strong> cùng những phần <strong>Quà Tặng Giới Hạn</strong> cực kỳ giá trị dành riêng cho khách hàng trong thời gian từ <strong>17.03 - 04.04</strong>. Hãy nhanh tay lấp đầy tủ trưng bày của bạn!</p>
+            <div class="campaign-card">
+                <div class="campaign-image">
+                    <img src="pictures/poster_event.jpg" alt="Bản Giao Hưởng Figure & Anime" onerror="this.src='https://placehold.co/1200x600/f1e4df/CD5C5C?text=Banner+Sự+Kiện'">
+                </div>
                 
-                <a href="store.html" class="event-button-outline">Săn ưu đãi ngay</a>
+                <div class="campaign-info">
+                    <h3>Bản Giao Hưởng Figure & Anime</h3>
+                    <p>Chào mừng chương mới cùng Atomi Collectibles! Khởi đầu một chặng đường sưu tầm đầy hứa hẹn với những siêu phẩm mô hình sắc nét nhất từ các thương hiệu hàng đầu Nhật Bản.</p>
+                    <p>Tận hưởng <strong>mức ưu đãi lên đến 25%</strong> cùng những phần <strong>Quà Tặng Giới Hạn</strong> cực kỳ giá trị dành riêng cho khách hàng trong thời gian từ <strong>17.03 - 04.04</strong>. Hãy nhanh tay lấp đầy tủ trưng bày của bạn!</p>
+                    
+                    <a href="store.html" class="event-button-outline">Săn ưu đãi ngay</a>
+                </div>
             </div>
         </div>
     </section>
