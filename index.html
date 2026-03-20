@@ -119,13 +119,24 @@
         .btn-secondary { background-color: var(--text-dark); color: white; border: 2px solid var(--text-dark);}
         .btn-secondary:hover { background-color: white; color: var(--text-dark); transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.2);}
 
-        /* VỀ CHÚNG TÔI (ABOUT) - ĐÃ CĂN GIỮA VÀ PHÓNG TO CHỮ */
+/* VỀ CHÚNG TÔI (ABOUT) - KHỔ NGANG BẦU BĨNH GỌN GÀNG */
         #about .section-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-top: 20px; width: 100%; max-width: 1100px; justify-content: center;}
-        .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-bottom: 5px solid transparent; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; justify-content: flex-start;}
+        .cards-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px; width: 100%; max-width: 1200px; }
+        .card { 
+            flex: 1 1 220px; /* Chia đều không gian bề ngang */
+            height: fit-content; /* Ma thuật đây: Ép chiều cao chỉ ôm vừa đủ chữ, không bị kéo dài */
+            background: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px); 
+            padding: 35px 25px; 
+            border-radius: 20px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            border-bottom: 5px solid transparent; 
+            transition: transform 0.3s, border-color 0.3s; 
+        }
         .card:hover { transform: translateY(-10px); border-bottom-color: var(--torii-red); }
-        .card h3 { font-size: 1.9em; margin-bottom: 20px; color: var(--torii-red);}
-        .card p { font-size: 1.15em; line-height: 1.6; color: var(--text-dark);} /* Chữ to và nét hơn */
+        .card h3 { font-size: 1.6em; margin-bottom: 15px; color: var(--torii-red); white-space: nowrap; }
+        .card p { font-size: 1.1em; line-height: 1.6; color: var(--text-dark); margin: 0; }
 
         /* CÂU CHUYỆN THƯƠNG HIỆU (STORY) - ĐÃ CHUYỂN THÀNH KHỔ NGANG */
         .story-content { display: flex; flex-direction: column; gap: 40px; align-items: center; justify-content: center; width: 100%; max-width: 1100px;}
