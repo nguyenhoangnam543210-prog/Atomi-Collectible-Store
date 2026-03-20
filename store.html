@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atomi Store | Mua sắm Anime Figure</title>
-    <link rel="icon" type="image/png" href="Pictures/logo_emblem.png">
+    <link rel="icon" type="image/png" href="pictures/logo_emblem.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -12,7 +12,7 @@
         /* PHÔNG CHỮ LOGO ATOMI CỦA NEM */
         @font-face {
             font-family: 'SVNRomaji';
-            src: url('Pictures/SVN-Romaji.ttf') format('truetype');
+            src: url('pictures/svn_romaji.ttf') format('truetype');
         }
 
         :root {
@@ -55,6 +55,8 @@
         .category-nav { background-color: #ffffff; padding: 12px 5%; display: flex; justify-content: center; gap: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); flex-wrap: wrap; position: relative; z-index: 100;}
         .category-nav a { text-decoration: none; color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 0.9em; transition: 0.3s; white-space: nowrap;}
         .category-nav a:hover, .category-nav a.active { color: var(--torii-red); border-bottom: 2px solid var(--torii-red); padding-bottom: 2px; }
+        .nav-flash-sale { color: var(--discount-red) !important; font-weight: 800 !important; }
+        .nav-flash-sale:hover { border-bottom-color: var(--discount-red) !important; }
 
         /* BANNER SLIDER */
         .banner-container { max-width: 1200px; margin: 30px auto; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); aspect-ratio: 21/9; }
@@ -75,8 +77,14 @@
         .view-all { color: var(--torii-red); text-decoration: none; font-weight: bold; }
         .view-all:hover { text-decoration: underline; }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        
         .product-card { background: var(--card-bg); border-radius: 15px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); text-align: center; transition: all 0.3s; border: 1px solid transparent; position: relative; }
         .product-card:hover { transform: translateY(-8px); border-color: var(--sakura-pink); box-shadow: 0 10px 25px rgba(205, 92, 92, 0.1); }
+        
+        /* HIỆU ỨNG THẺ FLASH SALE ĐẶC BIỆT */
+        .hot-sale-card { border: 2px solid rgba(231, 76, 60, 0.4); box-shadow: 0 8px 20px rgba(231, 76, 60, 0.1); }
+        .hot-sale-card:hover { border-color: var(--discount-red); box-shadow: 0 15px 35px rgba(231, 76, 60, 0.25); transform: translateY(-10px); }
+        
         .product-img { width: 100%; height: 280px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; cursor: pointer; }
         
         /* Chống rớt chữ */
@@ -92,6 +100,8 @@
         
         .buy-btn { display: block; width: 100%; padding: 12px; background: white; color: var(--torii-red); border: 2px solid var(--torii-red); border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .buy-btn:hover { background: var(--torii-red); color: white; }
+        .buy-btn-sale { border-color: var(--discount-red); color: var(--discount-red); }
+        .buy-btn-sale:hover { background: var(--discount-red); color: white; }
 
         /* BẢNG ĐĂNG NHẬP & GIỎ HÀNG */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 5000; justify-content: center; align-items: center; backdrop-filter: blur(3px); }
@@ -198,7 +208,6 @@
         }
         
         @media (max-width: 600px) {
-            /* 1. Header & Menu Vuốt Ngang */
             .top-header { flex-wrap: wrap; padding: 10px; padding-bottom: 15px;}
             .brand-container { order: 1; }
             .header-icons { order: 2; gap: 10px;}
@@ -213,7 +222,6 @@
             .store-section { padding: 0 10px; scroll-margin-top: 140px;}
             .banner-container { margin: 15px 10px; aspect-ratio: 16/9; border-radius: 10px;}
             
-            /* 2. Sản phẩm 2 cột cho Mobile (Sửa Lỗi Rớt Dòng) */
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .product-card { padding: 10px; border-radius: 10px;}
             .product-img { height: 160px; margin-bottom: 10px; }
@@ -221,7 +229,6 @@
             .product-name { font-size: 0.95em; margin-bottom: 3px; }
             .product-series { font-size: 0.75em; margin-bottom: 5px; }
             
-            /* Sắp xếp lại giá tiền nếu có giá giảm để không bị kẹt */
             .price-container { flex-direction: column; gap: 0; align-items: center; margin-bottom: 8px;}
             .product-price { font-size: 1.05em; margin-bottom: 8px; }
             .price-container .product-price { margin-bottom: 0;}
@@ -230,10 +237,8 @@
             
             .buy-btn { padding: 8px; font-size: 0.85em; }
 
-            /* 3. Popup Tràn Viền như App */
             .product-detail-card { width: 100%; height: 100vh; max-height: 100vh; border-radius: 0; flex-direction: column; overflow-y: auto;}
             
-            /* Nút X thêm background mờ để dễ bấm trên Mobile */
             .close-btn { position: fixed; top: 10px; right: 10px; z-index: 5000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); background: rgba(255,255,255,0.9); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;}
             
             .product-gallery { padding: 15px; flex: none; }
@@ -241,10 +246,8 @@
             .product-info { padding: 15px 20px 20px 20px; flex: 1; }
             .product-info h2 { font-size: 1.4em; }
             
-            /* Ghim nút bấm mua hàng dưới đáy màn hình */
             .product-actions { position: sticky; bottom: -20px; background: rgba(255,255,255,0.95); padding: 15px 0; margin-top: auto; border-top: 1px solid #eee; z-index: 10; backdrop-filter: blur(10px); display: flex; gap: 10px;}
             
-            /* 4. Footer, Buttons & Toast */
             .footer-main { grid-template-columns: 1fr; gap: 20px;}
             .section-header h2 { font-size: 1.4em; }
             
@@ -264,7 +267,7 @@
 
     <header class="top-header">
         <a href="index.html" class="brand-container">
-            <img src="Pictures/logo_emblem.png" alt="Atomi Logo" onerror="this.src='Pictures/Logo final.jpg'">
+            <img src="pictures/logo_emblem.png" alt="Atomi Logo" onerror="this.src='pictures/logo_final.jpg'">
             <span class="brand-text">Atomi</span>
         </a>
         <div class="header-icons">
@@ -278,6 +281,7 @@
     </header>
 
     <div class="category-nav">
+        <a href="#khuyen-mai" class="nav-flash-sale">🔥 SIÊU SALE</a>
         <a href="#hang-co-san">Hàng Có Sẵn</a>
         <a href="#pre-order">Pre-Order</a>
         <a href="#ti-le-1-7">Tỉ lệ 1/7</a>
@@ -286,8 +290,8 @@
     </div>
 
     <div class="banner-container">
-        <img src="Pictures/Banner/Yae_Miko.jpg" class="slide active" onclick="openProductModal('modal-A1')" onerror="this.src='https://placehold.co/1200x500/f6d7dd/CD5C5C'">
-        <img src="Pictures/Banner/Ambience_Synesthesia_1.jpg" class="slide" onclick="openProductModal('modal-A2')" onerror="this.src='https://placehold.co/1200x500/fff5f7/CD5C5C'">
+        <img src="pictures/banner/yae_miko.jpg" class="slide active" onclick="openProductModal('modal-A1')" onerror="this.src='https://placehold.co/1200x500/f6d7dd/CD5C5C'">
+        <img src="pictures/banner/ambience_synesthesia_1.jpg" class="slide" onclick="openProductModal('modal-A2')" onerror="this.src='https://placehold.co/1200x500/fff5f7/CD5C5C'">
         <button class="slider-btn prev-btn" onclick="event.stopPropagation(); changeSlide(-1)">❮</button>
         <button class="slider-btn next-btn" onclick="event.stopPropagation(); changeSlide(1)">❯</button>
         <div class="slider-dots">
@@ -296,30 +300,82 @@
         </div>
     </div>
 
+    <section id="khuyen-mai" class="store-section">
+        <div class="section-header" style="border-bottom-color: var(--discount-red);">
+            <h2 style="color: var(--discount-red);">🔥 Siêu Sale - Chớp Nhoáng 🔥</h2>
+            <a href="#" class="view-all" style="color: var(--discount-red);">Săn ngay ❯</a>
+        </div>
+        <div class="products-grid">
+            <div class="product-card hot-sale-card" data-tags="fern frieren sega luminasta sale">
+                <div class="discount-tag">-10%</div>
+                <img src="pictures/hang_co_san/sousou_no_frieren_fern_luminasta_1.webp" class="product-img" onclick="openProductModal('modal-Fern')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Fern'">
+                <h3 class="product-name">Fern Luminasta</h3><span class="product-series">Sousou no Frieren</span>
+                <div class="price-container">
+                    <div class="product-price" style="color: var(--discount-red);">765,000 đ</div>
+                    <div class="old-price">850,000 đ</div>
+                </div>
+                <button class="buy-btn buy-btn-sale" onclick="addToCart('Fern Luminasta', '765,000')">Thêm vào giỏ</button>
+            </div>
+            
+            <div class="product-card hot-sale-card" data-tags="hina bluearchive dress goodsmile sale">
+                <div class="discount-tag">-20%</div>
+                <img src="pictures/pre_order/blue_archive_sorasaki_hina_dress.jpg" class="product-img" onclick="openProductModal('modal-Hina')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Hina'">
+                <h3 class="product-name">Sorasaki Hina (Dress)</h3><span class="product-series">Blue Archive</span>
+                <div class="price-container">
+                    <div class="product-price" style="color: var(--discount-red);">2,800,000 đ</div>
+                    <div class="old-price">3,500,000 đ</div>
+                </div>
+                <button class="buy-btn buy-btn-sale" onclick="addToCart('Sorasaki Hina', '2,800,000')">Đặt Trước</button>
+            </div>
+
+            <div class="product-card hot-sale-card" data-tags="shenhe liyue waifu apextoys sale">
+                <div class="discount-tag">-15%</div>
+                <img src="pictures/pre_order/genshin_impact_shenhe_1.jpg" class="product-img" onclick="openProductModal('modal-Shenhe')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Shenhe'">
+                <h3 class="product-name">Shenhe 1/7</h3><span class="product-series">Genshin Impact</span>
+                <div class="price-container">
+                    <div class="product-price" style="color: var(--discount-red);">3,230,000 đ</div>
+                    <div class="old-price">3,800,000 đ</div>
+                </div>
+                <button class="buy-btn buy-btn-sale" onclick="addToCart('Shenhe 1/7', '3,230,000')">Đặt Trước</button>
+            </div>
+
+            <div class="product-card hot-sale-card" data-tags="zerotwo darlinginthefranxx maxfactory scale sale">
+                <div class="discount-tag">-25%</div>
+                <img src="pictures/ti_le_1_7/darling_in_the_franxx_zero_two_1_7_1.jpg" class="product-img" onclick="openProductModal('modal-ZeroTwo')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Zero+Two'">
+                <h3 class="product-name">Zero Two 1/7</h3><span class="product-series">Darling in the FranXX</span>
+                <div class="price-container">
+                    <div class="product-price" style="color: var(--discount-red);">3,375,000 đ</div>
+                    <div class="old-price">4,500,000 đ</div>
+                </div>
+                <button class="buy-btn buy-btn-sale" onclick="addToCart('Zero Two 1/7', '3,375,000')">Thêm vào giỏ</button>
+            </div>
+
+            <div class="product-card hot-sale-card" data-tags="luotianyi vsinger goodsmile concert scale sale">
+                <div class="discount-tag">-10%</div>
+                <img src="pictures/ti_le_1_7/vsinger_luo_tianyi_1_7_flowing_light_concert_1.jpg" class="product-img" onclick="openProductModal('modal-LuoTianyi')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Luo+Tianyi'">
+                <h3 class="product-name">Luo Tianyi (Concert)</h3><span class="product-series">Vsinger</span>
+                <div class="price-container">
+                    <div class="product-price" style="color: var(--discount-red);">3,780,000 đ</div>
+                    <div class="old-price">4,200,000 đ</div>
+                </div>
+                <button class="buy-btn buy-btn-sale" onclick="addToCart('Luo Tianyi 1/7', '3,780,000')">Thêm vào giỏ</button>
+            </div>
+        </div>
+    </section>
+
     <section id="hang-co-san" class="store-section">
         <div class="section-header"><h2>Hàng Có Sẵn</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
         <div class="products-grid">
-            <div class="product-card" data-tags="fern frieren sega luminasta">
-                <div class="discount-tag">-10%</div>
-                <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" class="product-img" onclick="openProductModal('modal-Fern')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Fern'">
-                <h3 class="product-name">Fern Luminasta</h3><span class="product-series">Sousou no Frieren</span>
-                <div class="price-container">
-                    <div class="product-price">765,000 đ</div>
-                    <div class="old-price">850,000 đ</div>
-                </div>
-                <button class="buy-btn" onclick="addToCart('Fern Luminasta', '765,000')">Thêm vào giỏ</button>
-            </div>
-            
             <div class="product-card" data-tags="frieren elf animefigure sega">
-                <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_1.webp" class="product-img" onclick="openProductModal('modal-Frieren')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Frieren'">
+                <img src="pictures/hang_co_san/sousou_no_frieren_frieren_1.webp" class="product-img" onclick="openProductModal('modal-Frieren')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Frieren'">
                 <h3 class="product-name">Frieren</h3><span class="product-series">Sousou no Frieren</span><div class="product-price">950,000 đ</div><button class="buy-btn" onclick="addToCart('Frieren', '950,000')">Thêm vào giỏ</button>
             </div>
             <div class="product-card" data-tags="goku dragonball shounen banpresto">
-                <img src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" class="product-img" onclick="openProductModal('modal-Goku')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Goku'">
+                <img src="pictures/hang_co_san/goku_figure_1.jpg" class="product-img" onclick="openProductModal('modal-Goku')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Goku'">
                 <h3 class="product-name">Son Goku Base</h3><span class="product-series">Dragon Ball Z</span><div class="product-price">1,200,000 đ</div><button class="buy-btn" onclick="addToCart('Son Goku Base', '1,200,000')">Thêm vào giỏ</button>
             </div>
             <div class="product-card" data-tags="luffy gear5 onepiece nika bandai">
-                <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" class="product-img" onclick="openProductModal('modal-Luffy')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Luffy'">
+                <img src="pictures/hang_co_san/luffy_nika_figure_1.jpg" class="product-img" onclick="openProductModal('modal-Luffy')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Luffy'">
                 <h3 class="product-name">Luffy Gear 5 (Nika)</h3><span class="product-series">One Piece</span><div class="product-price">1,500,000 đ</div><button class="buy-btn" onclick="addToCart('Luffy Gear 5 (Nika)', '1,500,000')">Thêm vào giỏ</button>
             </div>
         </div>
@@ -328,32 +384,12 @@
     <section id="pre-order" class="store-section">
         <div class="section-header"><h2>Pre-Order (Đặt trước)</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
         <div class="products-grid">
-            <div class="product-card" data-tags="hina bluearchive dress goodsmile">
-                <div class="discount-tag">-20%</div>
-                <img src="Pictures/PRE-ORDER/Blue Archive_Sorasaki_Hina_Dress.jpg" class="product-img" onclick="openProductModal('modal-Hina')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Hina'">
-                <h3 class="product-name">Sorasaki Hina (Dress)</h3><span class="product-series">Blue Archive</span>
-                <div class="price-container">
-                    <div class="product-price">2,800,000 đ</div>
-                    <div class="old-price">3,500,000 đ</div>
-                </div>
-                <button class="buy-btn" onclick="addToCart('Sorasaki Hina', '2,800,000')">Đặt Trước</button>
-            </div>
             <div class="product-card" data-tags="columbina genshinimpact fatui alter">
-                <img src="Pictures/PRE-ORDER/Genshin Impact_Columbina_Hyposelenia.jpg" class="product-img" onclick="openProductModal('modal-Columbina')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Columbina'">
+                <img src="pictures/pre_order/genshin_impact_columbina_hyposelenia.jpg" class="product-img" onclick="openProductModal('modal-Columbina')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Columbina'">
                 <h3 class="product-name">Columbina (Damselette)</h3><span class="product-series">Genshin Impact</span><div class="product-price">4,200,000 đ</div><button class="buy-btn" onclick="addToCart('Columbina', '4,200,000')">Đặt Trước</button>
             </div>
-            <div class="product-card" data-tags="shenhe liyue waifu apextoys">
-                <div class="discount-tag">-15%</div>
-                <img src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_1.jpg" class="product-img" onclick="openProductModal('modal-Shenhe')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Shenhe'">
-                <h3 class="product-name">Shenhe 1/7</h3><span class="product-series">Genshin Impact</span>
-                <div class="price-container">
-                    <div class="product-price">3,230,000 đ</div>
-                    <div class="old-price">3,800,000 đ</div>
-                </div>
-                <button class="buy-btn" onclick="addToCart('Shenhe 1/7', '3,230,000')">Đặt Trước</button>
-            </div>
             <div class="product-card" data-tags="saori bluearchive ariussquad alter">
-                <img src="Pictures/PRE-ORDER/Blue Archive_Joumae_Saori.jpg" class="product-img" onclick="openProductModal('modal-Saori')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Saori'">
+                <img src="pictures/pre_order/blue_archive_joumae_saori.jpg" class="product-img" onclick="openProductModal('modal-Saori')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Saori'">
                 <h3 class="product-name">Joumae Saori</h3><span class="product-series">Blue Archive</span><div class="product-price">3,100,000 đ</div><button class="buy-btn" onclick="addToCart('Joumae Saori', '3,100,000')">Đặt Trước</button>
             </div>
         </div>
@@ -362,33 +398,13 @@
     <section id="ti-le-1-7" class="store-section">
         <div class="section-header"><h2>Mô hình Tỉ lệ 1/7</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
         <div class="products-grid">
-            <div class="product-card" data-tags="zerotwo darlinginthefranxx maxfactory scale">
-                <div class="discount-tag">-25%</div>
-                <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_1.jpg" class="product-img" onclick="openProductModal('modal-ZeroTwo')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Zero+Two'">
-                <h3 class="product-name">Zero Two 1/7</h3><span class="product-series">Darling in the FranXX</span>
-                <div class="price-container">
-                    <div class="product-price">3,375,000 đ</div>
-                    <div class="old-price">4,500,000 đ</div>
-                </div>
-                <button class="buy-btn" onclick="addToCart('Zero Two 1/7', '3,375,000')">Thêm vào giỏ</button>
-            </div>
             <div class="product-card" data-tags="makima chainsawman estream scale">
-                <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_1.jpg" class="product-img" onclick="openProductModal('modal-Makima')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Makima'">
+                <img src="pictures/ti_le_1_7/chainsaw_man_makima_shibuya_1_7_1.jpg" class="product-img" onclick="openProductModal('modal-Makima')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Makima'">
                 <h3 class="product-name">Makima 1/7 (Shibuya)</h3><span class="product-series">Chainsaw Man</span><div class="product-price">4,800,000 đ</div><button class="buy-btn" onclick="addToCart('Makima 1/7', '4,800,000')">Thêm vào giỏ</button>
             </div>
             <div class="product-card" data-tags="rem rezero nightwizard kadokawa scale">
-                <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_1.jpg" class="product-img" onclick="openProductModal('modal-Rem')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Rem'">
+                <img src="pictures/ti_le_1_7/rem_phantom_night_wizard_1_7_1.jpg" class="product-img" onclick="openProductModal('modal-Rem')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Rem'">
                 <h3 class="product-name">Rem (Night Wizard)</h3><span class="product-series">Re:Zero</span><div class="product-price">3,900,000 đ</div><button class="buy-btn" onclick="addToCart('Rem 1/7', '3,900,000')">Thêm vào giỏ</button>
-            </div>
-            <div class="product-card" data-tags="luotianyi vsinger goodsmile concert scale">
-                <div class="discount-tag">-10%</div>
-                <img src="Pictures/TỈ LỆ 1-7/Vsinger_Luo_Tianyi_1-7_Flowing_Light_Concert_1.jpg" class="product-img" onclick="openProductModal('modal-LuoTianyi')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Luo+Tianyi'">
-                <h3 class="product-name">Luo Tianyi (Concert)</h3><span class="product-series">Vsinger</span>
-                <div class="price-container">
-                    <div class="product-price">3,780,000 đ</div>
-                    <div class="old-price">4,200,000 đ</div>
-                </div>
-                <button class="buy-btn" onclick="addToCart('Luo Tianyi 1/7', '3,780,000')">Thêm vào giỏ</button>
             </div>
         </div>
     </section>
@@ -397,7 +413,7 @@
         <div class="section-header"><h2>Phụ Kiện Trưng Bày</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
         <div class="products-grid">
             <div class="product-card" data-tags="hatsunemiku poster3d phukien miku">
-                <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_1.jpg" class="product-img" onclick="openProductModal('modal-MikuPoster')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Miku+Poster'">
+                <img src="pictures/phu_kien/poster_3d_hatsune_miku_39s_special_day_1.jpg" class="product-img" onclick="openProductModal('modal-MikuPoster')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Miku+Poster'">
                 <h3 class="product-name">Poster 3D Hatsune Miku</h3><span class="product-series">39's Special Day</span><div class="product-price">1,200,000 đ</div><button class="buy-btn" onclick="addToCart('Poster 3D Hatsune Miku', '1,200,000')">Thêm vào giỏ</button>
             </div>
         </div>
@@ -468,15 +484,11 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
-                    <img id="main-img-A1" src="Pictures/Banner/Yae_Miko.jpg" class="product-main-img">
+                    <img id="main-img-A1" src="pictures/banner/yae_miko.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/Banner/Yae_Miko.jpg" onclick="changeModalImage('main-img-A1', this.src)">
-                    <img src="Pictures/Banner/Yae_Miko_1.jpg" onclick="changeModalImage('main-img-A1', this.src)">
-                    <img src="Pictures/Banner/Yae_Miko_2.jpg" onclick="changeModalImage('main-img-A1', this.src)">
-                    <img src="Pictures/Banner/Yae_Miko_3.jpg" onclick="changeModalImage('main-img-A1', this.src)">
-                    <img src="Pictures/Banner/Yae_Miko_4.jpg" onclick="changeModalImage('main-img-A1', this.src)">
-                </div>
+                    <img src="pictures/banner/yae_miko.jpg" onclick="changeModalImage('main-img-A1', this.src)">
+                    </div>
             </div>
             <div class="product-info">
                 <h2>Mô hình Yae Miko (Genshin Impact) 1/7</h2>
@@ -495,12 +507,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-preorder">PRE-ORDER</span>
-                    <img id="main-img-A2" src="Pictures/Banner/Ambience_Synesthesia_1.jpg" class="product-main-img">
+                    <img id="main-img-A2" src="pictures/banner/ambience_synesthesia_1.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/Banner/Ambience_Synesthesia_1.jpg" onclick="changeModalImage('main-img-A2', this.src)">
-                    <img src="Pictures/Banner/Ambience_Synesthesia_2.jpg" onclick="changeModalImage('main-img-A2', this.src)">
-                    <img src="Pictures/Banner/Ambience_Synesthesia_3.jpg" onclick="changeModalImage('main-img-A2', this.src)">
+                    <img src="pictures/banner/ambience_synesthesia_1.jpg" onclick="changeModalImage('main-img-A2', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -520,11 +530,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
-                    <img id="main-img-fern" src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" class="product-main-img">
+                    <img id="main-img-fern" src="pictures/hang_co_san/sousou_no_frieren_fern_luminasta_1.webp" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_1.webp" onclick="changeModalImage('main-img-fern', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Fern Luminasta_2.webp" onclick="changeModalImage('main-img-fern', this.src)">
+                    <img src="pictures/hang_co_san/sousou_no_frieren_fern_luminasta_1.webp" onclick="changeModalImage('main-img-fern', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -547,12 +556,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
-                    <img id="main-img-frieren" src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_1.webp" class="product-main-img">
+                    <img id="main-img-frieren" src="pictures/hang_co_san/sousou_no_frieren_frieren_1.webp" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_1.webp" onclick="changeModalImage('main-img-frieren', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_2.webp" onclick="changeModalImage('main-img-frieren', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/Sousou No Frieren_Frieren_3.webp" onclick="changeModalImage('main-img-frieren', this.src)">
+                    <img src="pictures/hang_co_san/sousou_no_frieren_frieren_1.webp" onclick="changeModalImage('main-img-frieren', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -572,13 +579,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
-                    <img id="main-img-goku" src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" class="product-main-img">
+                    <img id="main-img-goku" src="pictures/hang_co_san/goku_figure_1.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_1.jpg" onclick="changeModalImage('main-img-goku', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_2.jpg" onclick="changeModalImage('main-img-goku', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_3.jpg" onclick="changeModalImage('main-img-goku', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/goku_figure_4.jpg" onclick="changeModalImage('main-img-goku', this.src)">
+                    <img src="pictures/hang_co_san/goku_figure_1.jpg" onclick="changeModalImage('main-img-goku', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -598,12 +602,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-instock">HÀNG CÓ SẴN</span>
-                    <img id="main-img-luffy" src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" class="product-main-img">
+                    <img id="main-img-luffy" src="pictures/hang_co_san/luffy_nika_figure_1.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_1.jpg" onclick="changeModalImage('main-img-luffy', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_2.jpg" onclick="changeModalImage('main-img-luffy', this.src)">
-                    <img src="Pictures/HÀNG CÓ SẴN/luffy_nika_figure_3.jpg" onclick="changeModalImage('main-img-luffy', this.src)">
+                    <img src="pictures/hang_co_san/luffy_nika_figure_1.jpg" onclick="changeModalImage('main-img-luffy', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -623,10 +625,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-preorder">PRE-ORDER</span>
-                    <img id="main-img-hina" src="Pictures/PRE-ORDER/Blue Archive_Sorasaki_Hina_Dress.jpg" class="product-main-img">
+                    <img id="main-img-hina" src="pictures/pre_order/blue_archive_sorasaki_hina_dress.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/PRE-ORDER/Blue Archive_Sorasaki_Hina_Dress.jpg" onclick="changeModalImage('main-img-hina', this.src)">
+                    <img src="pictures/pre_order/blue_archive_sorasaki_hina_dress.jpg" onclick="changeModalImage('main-img-hina', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -649,10 +651,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-preorder">PRE-ORDER</span>
-                    <img id="main-img-columbina" src="Pictures/PRE-ORDER/Genshin Impact_Columbina_Hyposelenia.jpg" class="product-main-img">
+                    <img id="main-img-columbina" src="pictures/pre_order/genshin_impact_columbina_hyposelenia.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/PRE-ORDER/Genshin Impact_Columbina_Hyposelenia.jpg" onclick="changeModalImage('main-img-columbina', this.src)">
+                    <img src="pictures/pre_order/genshin_impact_columbina_hyposelenia.jpg" onclick="changeModalImage('main-img-columbina', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -672,11 +674,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-preorder">PRE-ORDER</span>
-                    <img id="main-img-shenhe" src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_1.jpg" class="product-main-img">
+                    <img id="main-img-shenhe" src="pictures/pre_order/genshin_impact_shenhe_1.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_1.jpg" onclick="changeModalImage('main-img-shenhe', this.src)">
-                    <img src="Pictures/PRE-ORDER/Genshin Impact_Shenhe_2.jpg" onclick="changeModalImage('main-img-shenhe', this.src)">
+                    <img src="pictures/pre_order/genshin_impact_shenhe_1.jpg" onclick="changeModalImage('main-img-shenhe', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -699,10 +700,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-preorder">PRE-ORDER</span>
-                    <img id="main-img-saori" src="Pictures/PRE-ORDER/Blue Archive_Joumae_Saori.jpg" class="product-main-img">
+                    <img id="main-img-saori" src="pictures/pre_order/blue_archive_joumae_saori.jpg" class="product-main-img">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/PRE-ORDER/Blue Archive_Joumae_Saori.jpg" onclick="changeModalImage('main-img-saori', this.src)">
+                    <img src="pictures/pre_order/blue_archive_joumae_saori.jpg" onclick="changeModalImage('main-img-saori', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -722,13 +723,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
-                    <img id="main-img-zerotwo" src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                    <img id="main-img-zerotwo" src="pictures/ti_le_1_7/darling_in_the_franxx_zero_two_1_7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_1.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_2.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_3.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Darling_in_the_FranXX _Zero Two_1-7_4.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
+                    <img src="pictures/ti_le_1_7/darling_in_the_franxx_zero_two_1_7_1.jpg" onclick="changeModalImage('main-img-zerotwo', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -751,13 +749,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
-                    <img id="main-img-makima" src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                    <img id="main-img-makima" src="pictures/ti_le_1_7/chainsaw_man_makima_shibuya_1_7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_1.jpg" onclick="changeModalImage('main-img-makima', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_2.jpg" onclick="changeModalImage('main-img-makima', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_3.jpg" onclick="changeModalImage('main-img-makima', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Chainsaw_Man_Makima_Shibuya_1-7_4.jpg" onclick="changeModalImage('main-img-makima', this.src)">
+                    <img src="pictures/ti_le_1_7/chainsaw_man_makima_shibuya_1_7_1.jpg" onclick="changeModalImage('main-img-makima', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -777,12 +772,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
-                    <img id="main-img-rem" src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                    <img id="main-img-rem" src="pictures/ti_le_1_7/rem_phantom_night_wizard_1_7_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_1.jpg" onclick="changeModalImage('main-img-rem', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_2.jpg" onclick="changeModalImage('main-img-rem', this.src)">
-                    <img src="Pictures/TỈ LỆ 1-7/Rem_Phantom_Night_Wizard_1-7_3.jpg" onclick="changeModalImage('main-img-rem', this.src)">
+                    <img src="pictures/ti_le_1_7/rem_phantom_night_wizard_1_7_1.jpg" onclick="changeModalImage('main-img-rem', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -802,10 +795,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-scale">TỈ LỆ 1/7</span>
-                    <img id="main-img-luotianyi" src="Pictures/TỈ LỆ 1-7/Vsinger_Luo_Tianyi_1-7_Flowing_Light_Concert_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
+                    <img id="main-img-luotianyi" src="pictures/ti_le_1_7/vsinger_luo_tianyi_1_7_flowing_light_concert_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/f6d7dd/CD5C5C'">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/TỈ LỆ 1-7/Vsinger_Luo_Tianyi_1-7_Flowing_Light_Concert_1.jpg" onclick="changeModalImage('main-img-luotianyi', this.src)">
+                    <img src="pictures/ti_le_1_7/vsinger_luo_tianyi_1_7_flowing_light_concert_1.jpg" onclick="changeModalImage('main-img-luotianyi', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -828,13 +821,10 @@
             <div class="product-gallery">
                 <div class="main-img-container">
                     <span class="product-badge badge-accessory">PHỤ KIỆN</span>
-                    <img id="main-img-mikuposter" src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/fff5f7/CD5C5C'">
+                    <img id="main-img-mikuposter" src="pictures/phu_kien/poster_3d_hatsune_miku_39s_special_day_1.jpg" class="product-main-img" onerror="this.src='https://placehold.co/800x800/fff5f7/CD5C5C'">
                 </div>
                 <div class="product-thumbnails">
-                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_1.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
-                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_2.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
-                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_3.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
-                    <img src="Pictures/PHỤ KIỆN/Poster_3D_Hatsune_Miku_39's_Special_Day_4.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
+                    <img src="pictures/phu_kien/poster_3d_hatsune_miku_39s_special_day_1.jpg" onclick="changeModalImage('main-img-mikuposter', this.src)">
                 </div>
             </div>
             <div class="product-info">
@@ -849,7 +839,7 @@
     </div>
 
     <a href="https://poe.com/invite/eb48a4eb36fe4c61b3792980ec7b16eb" target="_blank" class="ai-floating-btn">
-        <img src="Pictures/logo_emblem.png" alt="AI" onerror="this.src='Pictures/Logo final.jpg'">
+        <img src="pictures/logo_emblem.png" alt="AI" onerror="this.src='pictures/logo_final.jpg'">
         Trò chuyện cùng AI Atomi
     </a>
 
