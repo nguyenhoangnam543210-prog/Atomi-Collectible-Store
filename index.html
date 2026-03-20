@@ -40,7 +40,7 @@
             background-attachment: fixed;    
             background-repeat: no-repeat;
             background-color: var(--sakura-light);
-            overflow-x: hidden; /* Chống tràn bề ngang khi cánh hoa rơi */
+            overflow-x: hidden; 
         }
 
         h1, h2, h3 { font-family: 'Noto Serif JP', serif; margin-top: 0;}
@@ -65,18 +65,21 @@
         .nav-pills { display: flex; align-items: center; justify-content: center; gap: 15px; }
         .nav-pills a { text-decoration: none; color: var(--text-dark); font-family: 'Noto Serif JP', serif; font-weight: 600; padding: 8px 20px; border-radius: 30px; transition: all 0.3s ease; border: 1px solid transparent; }
         .nav-pills a:hover, .nav-pills a:focus { color: var(--torii-red); background-color: rgba(255, 244, 246, 0.9); border: 1px solid var(--sakura-pink); transform: translateY(-2px); }
+        
+        /* CLASS ACTIVE DÀNH CHO THANH MENU KHI SCROLL */
+        .nav-pills a.active { color: var(--torii-red); background-color: rgba(255, 244, 246, 0.9); border: 1px solid var(--torii-red); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(205, 92, 92, 0.1); }
 
         .nav-store-btn { color: var(--torii-red) !important; border: 2px solid var(--sakura-pink) !important; background-color: var(--sakura-light); }
         .nav-store-btn:hover { background-color: var(--torii-red) !important; color: white !important; border-color: var(--torii-red) !important; }
 
         /* KHUNG CHỨA NỘI DUNG CHUNG - MẶC ĐỊNH LÀ MIN-HEIGHT */
         section { 
-            min-height: 100vh; /* Cao tối thiểu bằng màn hình */
+            min-height: 100vh; 
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Căn giữa dọc */
-            align-items: center; /* Căn giữa ngang */
-            padding: 100px 20px 60px; /* Chừa khoảng cho Header */
+            justify-content: center; 
+            align-items: center; 
+            padding: 100px 20px 60px; 
             box-sizing: border-box;
             position: relative; 
             z-index: 1; 
@@ -88,13 +91,7 @@
         
         /* TUYỆT KỸ ÉP SECTION ĐẦU TIÊN (HOME) PHẢI FIT CHÍNH XÁC 1 MÀN HÌNH MÁY TÍNH */
         @media (min-width: 1000px) {
-            #home {
-                height: 100vh; /* Ép cứng chiều cao */
-                min-height: 100vh; /* Chắc chắn */
-                padding: 0; /* Xóa bớt padding để căn giữa hoàn hảo */
-                display: grid; /* Dùng grid để căn giữa */
-                place-items: center; 
-            }
+            #home { height: 100vh; min-height: 100vh; padding: 0; display: grid; place-items: center; }
         }
         
         .section-wrapper { width: 100%; text-align: center; }
@@ -103,7 +100,7 @@
         .section-title { text-align: center; font-size: 2.8em; margin-bottom: 50px; background: rgba(255,255,255,0.85); display: inline-block; padding: 12px 35px; border-radius: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.03);}
         .title-container { text-align: center; margin-bottom: 20px; width: 100%; } 
 
-        /* TRANG CHỦ (HOME) - ĐÃ ĐỘ LẠI ĐỂ FIT MÀN HÌNH */
+        /* TRANG CHỦ (HOME) */
         .home-content-box { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;}
         
         .center-logo-frame { width: 160px; height: 160px; border-radius: 50%; padding: 8px; background: #ffffff; border: 2px solid var(--sakura-pink); box-shadow: 0 8px 25px rgba(205, 92, 92, 0.15); display: flex; align-items: center; justify-content: center; animation: float 3s infinite ease-in-out; }
@@ -113,7 +110,7 @@
         .premium-tagline { font-size: 2.8rem; font-style: italic; font-weight: 600; line-height: 1.3; margin-bottom: 10px; background: rgba(255,255,255,0.8); padding: 20px 40px; border-radius: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.03);}
         .premium-tagline .highlight { color: var(--torii-red); font-weight: 700; }
         
-        .home-desc { background: rgba(255,255,255,0.92); padding: 15px 30px; border-radius: 20px; font-weight: 600; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.03); max-width: 800px;}
+        .home-desc { background: rgba(255,255,255,0.92); padding: 15px 30px; border-radius: 20px; font-weight: 600; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.03); max-width: 800px; margin: 0 auto;}
 
         .hero-buttons { display: flex; gap: 25px; margin-top: 30px; flex-wrap: wrap; justify-content: center; }
         .cta-button { padding: 18px 45px; font-size: 1.1rem; text-decoration: none; border-radius: 50px; font-weight: bold; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
@@ -122,23 +119,28 @@
         .btn-secondary { background-color: var(--text-dark); color: white; border: 2px solid var(--text-dark);}
         .btn-secondary:hover { background-color: white; color: var(--text-dark); transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.2);}
 
-        /* VỀ CHÚNG TÔI (ABOUT) */
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px; margin-top: 20px; width: 100%; max-width: 1200px;}
-        .card { background: var(--card-bg); backdrop-filter: blur(10px); padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-bottom: 5px solid white; transition: transform 0.3s; }
-        .card:hover { transform: translateY(-10px); border-bottom: 5px solid var(--torii-red); }
-        .card h3 { font-size: 1.8em; margin-bottom: 15px; color: var(--torii-red);}
+        /* VỀ CHÚNG TÔI (ABOUT) - ĐÃ CĂN GIỮA VÀ PHÓNG TO CHỮ */
+        #about .section-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; margin-top: 20px; width: 100%; max-width: 1100px; justify-content: center;}
+        .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 50px 35px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-bottom: 5px solid transparent; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; justify-content: flex-start;}
+        .card:hover { transform: translateY(-10px); border-bottom-color: var(--torii-red); }
+        .card h3 { font-size: 1.9em; margin-bottom: 20px; color: var(--torii-red);}
+        .card p { font-size: 1.15em; line-height: 1.6; color: var(--text-dark);} /* Chữ to và nét hơn */
 
-        /* CÂU CHUYỆN THƯƠNG HIỆU (STORY) */
-        .story-content { display: flex; gap: 60px; align-items: center; justify-content: space-between; width: 100%;}
-        .story-text { flex: 1.2; font-size: 1.2em; text-align: justify; background: var(--card-bg); padding: 50px; border-radius: 25px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        .story-text strong { color: var(--torii-red); }
-        .story-text p { margin-bottom: 15px;}
+        /* CÂU CHUYỆN THƯƠNG HIỆU (STORY) - ĐÃ CHUYỂN THÀNH KHỔ NGANG */
+        .story-content { display: flex; flex-direction: column; gap: 40px; align-items: center; justify-content: center; width: 100%; max-width: 1100px;}
         
-        .story-showcase-container { flex: 0.8; background: var(--card-bg); border-radius: 25px; padding: 60px 20px 40px 20px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        /* Nội dung chữ khổ ngang phía trên */
+        .story-text { width: 100%; font-size: 1.25em; text-align: center; background: rgba(255, 255, 255, 0.9); padding: 50px 80px; border-radius: 25px; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); box-sizing: border-box;}
+        .story-text strong { color: var(--torii-red); }
+        .story-text p { margin-bottom: 15px; }
+        
+        /* Showcase ảnh nền xám mờ trong suốt 50% phía dưới */
+        .story-showcase-container { width: 100%; max-width: 1000px; background: rgba(240, 240, 245, 0.5); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 30px; padding: 60px 20px 40px 20px; text-align: center; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        
         .showcase-figures { display: flex; justify-content: center; align-items: center; margin-bottom: 30px; }
         .showcase-figures img { border-radius: 15px; object-fit: contain; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.4s ease; background: transparent;}
         
-        /* CĂN CHỈNH KÍCH THƯỚC ẢNH VÀ HIỆU ỨNG TRỒNG LÊN NHAU ĐÃ FIX ĐƯỜNG DẪN MỚI */
         .fig-side { width: 160px; height: 240px; z-index: 1; }
         .fig-left { transform: translateX(35px) scale(0.9) rotate(-3deg); }
         .fig-right { transform: translateX(-35px) scale(0.9) rotate(3deg); }
@@ -182,24 +184,22 @@
         .payment-methods span { background: #fff; color: #1a1a1a; padding: 6px 15px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
         .footer-bottom { text-align: center; border-top: 1px solid #333; padding-top: 30px; margin-top: 50px; font-size: 0.95em; color: #888; }
 
-
         /* ============================================================== */
         /* MEDIA QUERIES - TỐI ƯU CỰC ĐỈNH CHO MOBILE ĐÂY                 */
         /* ============================================================== */
         @media (max-width: 1000px) {
             header { flex-direction: column; padding: 15px; }
             .brand-badge { position: relative; left: 0; margin-bottom: 12px; }
-            section { min-height: auto; padding: 80px 15px; } /* Xóa 100vh trên mobile để không bị cắt */
+            section { min-height: auto; padding: 80px 15px; } 
             #home { padding-top: 160px; }
             .premium-tagline { font-size: 2.2rem; padding: 15px 25px; }
-            .story-content { flex-direction: column; gap: 40px;}
+            .story-text { padding: 40px; }
             .footer-main { grid-template-columns: 1fr 1fr; } 
             .footer-top { flex-direction: column; text-align: center; justify-content: center; }
             .newsletter-box { justify-content: center; flex-direction: column;}
         }
 
         @media (max-width: 600px) {
-            /* Header vắt ngang cho mobile */
             .nav-pills { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; width: 100%; padding-bottom: 8px; -webkit-overflow-scrolling: touch;}
             .nav-pills::-webkit-scrollbar { display: none; }
             .nav-pills a { white-space: nowrap; font-size: 0.9em; padding: 7px 15px;}
@@ -214,8 +214,7 @@
             .hero-buttons { flex-direction: column; gap: 15px; width: 100%;}
             .cta-button { width: 100%; box-sizing: border-box;}
 
-            .story-text { padding: 30px; }
-            /* Thu nhỏ khu vực ảnh trên mobile */
+            .story-text { padding: 25px; font-size: 1.1em;}
             .story-showcase-container { padding: 40px 10px 30px 10px; }
             .fig-center { width: 160px; height: 240px; }
             .fig-side { width: 110px; height: 160px; }
@@ -247,7 +246,7 @@
             <span class="brand-text">Atomi</span>
         </a>
         <nav class="nav-pills">
-            <a href="#home">Trang chủ</a>
+            <a href="#home" class="active">Trang chủ</a>
             <a href="#about">Về chúng tôi</a>
             <a href="#story">Câu chuyện</a>
             <a href="#campaign">Sự kiện</a>
@@ -309,13 +308,13 @@
                     <p>Đó là những giấc mơ, là tuổi trẻ, và là nguồn cảm hứng mãnh liệt cất lên từ thế giới 2D.</p>
                     <p>Tại Atomi, mỗi mô hình là một tác phẩm nghệ thuật, mang trong mình linh hồn của người nghệ nhân và câu chuyện của nhân vật.</p>
                     <p>Cùng với sự đồng hành của trợ lý ảo AI "Atomi", chúng tôi tự hào dẫn lối bạn bước vào một không gian sưu tầm minh bạch, tinh tế và đầy cảm xúc.</p>
-                    <p><strong>Cổng Torii & Hoa Anh Đào:</strong> Sự giao thoa giữa thế giới tưởng tượng và hiện thực, kết hợp với họa tiết sóng Seigaiha tượng trưng cho niềm đam mê sưu tầm trường tồn.</p>
+                    <p style="margin-bottom: 0;"><strong>Cổng Torii & Hoa Anh Đào:</strong> Sự giao thoa giữa thế giới tưởng tượng và hiện thực, kết hợp với họa tiết sóng Seigaiha tượng trưng cho niềm đam mê sưu tầm trường tồn.</p>
                 </div>
                 <div class="story-showcase-container">
                     <div class="showcase-figures">
-                        <img src="pictures/figure_1.jpg" class="fig-side fig-left" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C?text=Fern'">
-                        <img src="pictures/figure_2.jpg" class="fig-center" onerror="this.src='https://placehold.co/250x350/f6d7dd/CD5C5C?text=Luffy'">
-                        <img src="pictures/figure_3.jpg" class="fig-side fig-right" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C?text=Goku'">
+                        <img src="pictures/figure_1.jpg" class="fig-side fig-left" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
+                        <img src="pictures/figure_2.jpg" class="fig-center" onerror="this.src='https://placehold.co/250x350/f6d7dd/CD5C5C'">
+                        <img src="pictures/figure_3.jpg" class="fig-side fig-right" onerror="this.src='https://placehold.co/200x300/f6d7dd/CD5C5C'">
                     </div>
                     <p style="font-family: 'Noto Serif JP', serif; font-size: 1.3em; font-weight: bold; margin: 0; color: var(--text-dark);">Atomi Figure Art Showcase</p>
                 </div>
@@ -418,5 +417,29 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll(".nav-pills a:not(.nav-store-btn)");
+
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach((section) => {
+                    const sectionTop = section.offsetTop;
+                    // Trừ hao 200px để menu sáng sớm hơn khi vừa chạm tới rìa section
+                    if (pageYOffset >= (sectionTop - 200)) {
+                        current = section.getAttribute("id");
+                    }
+                });
+
+                navLinks.forEach((link) => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href") === `#${current}`) {
+                        link.classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
