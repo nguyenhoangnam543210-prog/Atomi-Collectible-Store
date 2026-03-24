@@ -284,6 +284,21 @@
             box-shadow: 0 4px 10px rgba(205, 92, 92, 0.3) !important; 
             background: white !important; 
             padding: 2px !important; 
+        /* Chế độ phóng to khi bấm Xem Tất Cả */
+        .products-grid.large-view { 
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important; 
+            gap: 40px; 
+        }
+        .products-grid.large-view .product-img { 
+            height: 450px !important; 
+        }
+        .products-grid.large-view .product-card { 
+            padding: 25px; 
+        }
+        .products-grid.large-view .product-name { 
+            font-size: 1.4em; 
+            white-space: normal; /* Cho phép rớt dòng để đọc hết tên */
+        }            
     </style>
 </head>
 <body>
@@ -330,7 +345,7 @@
     <section id="khuyen-mai" class="store-section">
         <div class="section-header" style="border-bottom-color: var(--discount-red);">
             <h2 style="color: var(--discount-red);">🔥 Siêu Sale - Chớp Nhoáng 🔥</h2>
-            <a href="#" class="view-all" style="color: var(--discount-red);">Săn ngay ❯</a>
+            <a href="#" class="view-all" onclick="toggleLargeView(this); return false;" style="color: var(--discount-red);">Săn ngay ❯</a>
         </div>
         <div class="products-grid">
             <div class="product-card hot-sale-card" data-tags="fern frieren sega luminasta sale">
@@ -391,7 +406,7 @@
     </section>
 
     <section id="hang-co-san" class="store-section">
-        <div class="section-header"><h2>Hàng Có Sẵn</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="section-header"><h2>Hàng Có Sẵn</h2><a href="#" class="view-all" onclick="toggleLargeView(this); return false;">Xem tất cả ❯</a></div>
         <div class="products-grid">
             <div class="product-card" data-tags="frieren elf animefigure sega">
                 <img src="pictures/hang_co_san/sousou_no_frieren_frieren_1.webp" class="product-img" onclick="openProductModal('modal-Frieren')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Frieren'">
@@ -409,7 +424,7 @@
     </section>
 
     <section id="pre-order" class="store-section">
-        <div class="section-header"><h2>Pre-Order (Đặt trước)</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="section-header"><h2>Pre-Order (Đặt trước)</h2><a href="#" class="view-all" onclick="toggleLargeView(this); return false;">Xem tất cả ❯</a></div>
         <div class="products-grid">
             <div class="product-card" data-tags="columbina genshinimpact fatui alter">
                 <img src="pictures/pre_order/genshin_impact_columbina_hyposelenia.jpg" class="product-img" onclick="openProductModal('modal-Columbina')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Columbina'">
@@ -423,7 +438,7 @@
     </section>
 
     <section id="ti-le-1-7" class="store-section">
-        <div class="section-header"><h2>Mô hình Tỉ lệ 1/7</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="section-header"><h2>Mô hình Tỉ lệ 1/7</h2><a href="#" class="view-all" onclick="toggleLargeView(this); return false;">Xem tất cả ❯</a></div>
         <div class="products-grid">
             <div class="product-card" data-tags="makima chainsawman estream scale">
                 <img src="pictures/ti_le_1_7/chainsaw_man_makima_shibuya_1_7_1.jpg" class="product-img" onclick="openProductModal('modal-Makima')" onerror="this.src='https://placehold.co/300x400/f6d7dd/CD5C5C?text=Makima'">
@@ -437,7 +452,7 @@
     </section>
 
     <section id="phu-kien" class="store-section">
-        <div class="section-header"><h2>Phụ Kiện Trưng Bày</h2><a href="#" class="view-all">Xem tất cả ❯</a></div>
+        <div class="section-header"><h2>Phụ Kiện Trưng Bày</h2><a href="#" class="view-all" onclick="toggleLargeView(this); return false;">Xem tất cả ❯</a></div>
         <div class="products-grid">
             <div class="product-card" data-tags="hatsunemiku poster3d phukien miku">
                 <img src="pictures/phu_kien/poster_3d_hatsune_miku_39s_special_day_1.jpg" class="product-img" onclick="openProductModal('modal-MikuPoster')" onerror="this.src='https://placehold.co/300x400/fff5f7/CD5C5C?text=Miku+Poster'">
@@ -1074,7 +1089,20 @@
             else { topBtn.style.opacity = "0"; topBtn.style.visibility = "hidden"; }
         });
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
+        // Tính năng chuyển đổi chế độ xem Grid to/nhỏ
+        function toggleLargeView(btn) {
+        let section = btn.closest('.store-section');
+        let grid = section.querySelector('.products-grid');
+        grid.classList.toggle('large-view');
+    
+        // Đổi chữ trên nút
+        if (grid.classList.contains('large-view')) {
+        btn.innerHTML = 'Thu gọn ❮';
+    } else {
+        // Kiểm tra xem là nút Sale hay nút Thường để trả về chữ đúng
+        btn.innerHTML = section.id === 'khuyen-mai' ? 'Săn ngay ❯' : 'Xem tất cả ❯';
+    }
+}
     </script>
 </body>
 </html>
