@@ -905,17 +905,6 @@
             </div>
         </div>
     </div>
-
-<div id="ai-chat-widget" style="position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end;">
-        
-        <div id="ai-chat-frame" style="display: none; width: 380px; height: 550px; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); overflow: hidden; margin-bottom: 20px; border: 2px solid var(--torii-red);">
-            <div style="background: var(--torii-red); color: white; padding: 12px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
-                <span style="display: flex; align-items: center; gap: 8px;">
-                    <img src="pictures/logo_emblem.png" onerror="this.src='https://placehold.co/20x20/fff/CD5C5C'" style="width: 20px; height: 20px; border-radius: 50%;"> 
-                    Trợ lý Atomi AI
-                </span>
-                <span style="cursor: pointer; font-size: 18px;" onclick="document.getElementById('ai-chat-frame').style.display='none'">✖</span>
-            </div>
             
         <script>
         (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="-iV8NUvlyGi-OPzl6eN9_";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
