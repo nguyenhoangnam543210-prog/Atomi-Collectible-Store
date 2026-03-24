@@ -300,7 +300,39 @@
         .products-grid.large-view .product-name { 
             font-size: 1.4em; 
             white-space: normal; /* Cho phép rớt dòng để đọc hết tên */
-        }         
+        }  
+        /* EASTER EGG: BÃO SAKURA CINEMATIC */
+        body.sakura-storm-mode {
+            background-color: #1a1a2e !important; /* Bầu trời đêm điện ảnh */
+            background-image: none !important;
+            transition: background-color 2s ease-in-out;
+        }
+        body.sakura-storm-mode h2, 
+        body.sakura-storm-mode .product-name,
+        body.sakura-storm-mode .brand-text {
+            color: #ffb7c5 !important; /* Chữ phát sáng màu hồng phấn */
+            text-shadow: 0 0 15px rgba(255, 183, 197, 0.6);
+            transition: all 1s ease;
+        }
+        /* Dòng chữ phong ấn hiện ra giữa màn hình */
+        .cinematic-alert {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-family: 'Noto Serif JP', serif; font-size: 3.5rem; font-weight: bold;
+            color: #ffb7c5; text-shadow: 0 0 30px #ffb7c5, 0 0 60px #e74c3c;
+            z-index: 9999; opacity: 0; pointer-events: none; text-align: center;
+            transition: opacity 1s ease; white-space: nowrap;
+        }
+        .cinematic-alert.show { opacity: 1; animation: pulseGlow 2s infinite; }
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        /* Cánh hoa cuồng phong */
+        .sakura-petal.storm-petal {
+            background-color: #ffb7c5 !important;
+            box-shadow: 0 0 15px #ffb7c5;
+            z-index: 50;
+        }
     </style>
 </head>
 <body>
@@ -1094,6 +1126,57 @@
         btn.innerHTML = section.id === 'khuyen-mai' ? 'Săn ngay ❯' : 'Xem tất cả ❯';
     }
 }
+        // EASTER EGG: BÃO HOA ANH ĐÀO (Gõ chữ "sakura")
+        let secretCode = "sakura";
+        let inputBuffer = "";
+
+        document.addEventListener('keydown', function(e) {
+            // Không nhận lệnh nếu khách đang gõ vào thanh tìm kiếm
+            if(e.target.tagName.toLowerCase() === 'input') return; 
+
+            inputBuffer += e.key.toLowerCase();
+            if (inputBuffer.length > secretCode.length) {
+                inputBuffer = inputBuffer.substring(1);
+            }
+            // Nếu gõ đúng thần chú
+            if (inputBuffer === secretCode) {
+                triggerSakuraStorm();
+                inputBuffer = ""; // Reset bùa chú
+            }
+        });
+
+        function triggerSakuraStorm() {
+            // 1. Kéo rèm màn đêm
+            document.body.classList.add('sakura-storm-mode');
+            
+            // 2. Hiện dòng chữ Cinematic
+            let alertText = document.createElement('div');
+            alertText.className = 'cinematic-alert';
+            alertText.innerHTML = "🌸 Phong ấn đã được giải trừ! 🌸";
+            document.body.appendChild(alertText);
+            
+            setTimeout(() => { alertText.classList.add('show'); }, 100);
+            setTimeout(() => { alertText.classList.remove('show'); setTimeout(() => alertText.remove(), 1000); }, 5000);
+
+            // 3. Triệu hồi 60 cánh hoa rơi tốc độ cao
+                for(let i = 0; i < 60; i++) {
+                let petal = document.createElement('div');
+                petal.className = 'sakura-petal storm-petal';
+                
+                // Random kích thước, vị trí và tốc độ rơi
+                let size = Math.random() * 20 + 10; 
+                petal.style.width = size + 'px';
+                petal.style.height = size + 'px';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.top = -50 + 'px';
+                
+                // Rơi cực lẹ từ 2 - 4 giây
+                petal.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                petal.style.animationDelay = (Math.random() * 2) + 's';
+                
+                document.body.appendChild(petal);
+            }
+        }
     </script>
 </body>
 </html>
