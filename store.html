@@ -301,7 +301,7 @@
             font-size: 1.4em; 
             white-space: normal; /* Cho phép rớt dòng để đọc hết tên */
         }  
-        /* EASTER EGG: BÃO SAKURA CINEMATIC */
+        /* EASTER EGG: BÃO SAKURA CINEMATIC (Đã nâng cấp) */
         body.sakura-storm-mode {
             background-color: #1a1a2e !important; /* Bầu trời đêm điện ảnh */
             background-image: none !important;
@@ -314,19 +314,19 @@
             text-shadow: 0 0 15px rgba(255, 183, 197, 0.6);
             transition: all 1s ease;
         }
-        /* Dòng chữ phong ấn hiện ra giữa màn hình */
-        .cinematic-alert {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-family: 'Noto Serif JP', serif; font-size: 3.5rem; font-weight: bold;
-            color: #ffb7c5; text-shadow: 0 0 30px #ffb7c5, 0 0 60px #e74c3c;
-            z-index: 9999; opacity: 0; pointer-events: none; text-align: center;
-            transition: opacity 1s ease; white-space: nowrap;
+        
+        /* Chuyển màu thanh Bar thành Gradient Cinematic */
+        body.sakura-storm-mode .top-header,
+        body.sakura-storm-mode .category-nav {
+            background: linear-gradient(135deg, #1a1a2e 0%, #3a1c28 100%) !important;
+            border-bottom: 1px solid rgba(255, 183, 197, 0.2);
+            transition: background 2s ease-in-out;
         }
-        .cinematic-alert.show { opacity: 1; animation: pulseGlow 2s infinite; }
-        @keyframes pulseGlow {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.05); }
-        }
+        /* Đổi màu chữ menu cho nổi trên nền tối */
+        body.sakura-storm-mode .category-nav a, 
+        body.sakura-storm-mode .header-icons a { color: #ffb7c5 !important; }
+        body.sakura-storm-mode .cart-icon { background: rgba(255, 183, 197, 0.1) !important; }
+
         /* Cánh hoa cuồng phong */
         .sakura-petal.storm-petal {
             background-color: #ffb7c5 !important;
@@ -1129,53 +1129,52 @@
         // EASTER EGG: BÃO HOA ANH ĐÀO (Gõ chữ "sakura")
         let secretCode = "sakura";
         let inputBuffer = "";
+        let stormTimer = null; // Biến kiểm soát thời gian bão
 
         document.addEventListener('keydown', function(e) {
-            // Không nhận lệnh nếu khách đang gõ vào thanh tìm kiếm
             if(e.target.tagName.toLowerCase() === 'input') return; 
 
             inputBuffer += e.key.toLowerCase();
             if (inputBuffer.length > secretCode.length) {
                 inputBuffer = inputBuffer.substring(1);
             }
-            // Nếu gõ đúng thần chú
             if (inputBuffer === secretCode) {
                 triggerSakuraStorm();
-                inputBuffer = ""; // Reset bùa chú
+                inputBuffer = ""; 
             }
         });
 
-        function triggerSakuraStorm() {
-            // 1. Kéo rèm màn đêm
-            document.body.classList.add('sakura-storm-mode');
-            
-            // 2. Hiện dòng chữ Cinematic
-            let alertText = document.createElement('div');
-            alertText.className = 'cinematic-alert';
-            alertText.innerHTML = "🌸 Phong ấn đã được giải trừ! 🌸";
-            document.body.appendChild(alertText);
-            
-            setTimeout(() => { alertText.classList.add('show'); }, 100);
-            setTimeout(() => { alertText.classList.remove('show'); setTimeout(() => alertText.remove(), 1000); }, 5000);
+            function triggerSakuraStorm() {
+            // Xóa bão cũ nếu khách bấm liên tục để không bị lag
+            clearTimeout(stormTimer);
+            document.querySelectorAll('.storm-petal').forEach(p => p.remove());
 
-            // 3. Triệu hồi 60 cánh hoa rơi tốc độ cao
-                for(let i = 0; i < 60; i++) {
+            // Kéo rèm màn đêm
+            document.body.classList.add('sakura-storm-mode');
+
+            // Triệu hồi 60 cánh hoa
+            for(let i = 0; i < 60; i++) {
                 let petal = document.createElement('div');
                 petal.className = 'sakura-petal storm-petal';
                 
-                // Random kích thước, vị trí và tốc độ rơi
                 let size = Math.random() * 20 + 10; 
                 petal.style.width = size + 'px';
                 petal.style.height = size + 'px';
                 petal.style.left = Math.random() * 100 + 'vw';
                 petal.style.top = -50 + 'px';
                 
-                // Rơi cực lẹ từ 2 - 4 giây
                 petal.style.animationDuration = (Math.random() * 2 + 2) + 's';
                 petal.style.animationDelay = (Math.random() * 2) + 's';
                 
                 document.body.appendChild(petal);
             }
+
+            // Bão TỰ TẠNH sau 12 giây, trả lại giao diện mua sắm bình thường
+            stormTimer = setTimeout(() => {
+                document.body.classList.remove('sakura-storm-mode');
+                // Xóa các cánh hoa thừa đi cho nhẹ web
+                document.querySelectorAll('.storm-petal').forEach(p => p.remove());
+            }, 12000);
         }
     </script>
 </body>
