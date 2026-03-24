@@ -59,7 +59,17 @@
 
         .brand-badge { position: absolute; left: 50px; display: inline-flex; align-items: center; gap: 12px; padding: 5px 20px 5px 5px; border-radius: 50px; background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(205, 92, 92, 0.2); text-decoration: none; transition: all 0.3s ease; }
         .brand-badge:hover { border-color: rgba(205, 92, 92, 0.5); box-shadow: 0 4px 15px rgba(205, 92, 92, 0.1); }
-        .brand-badge img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        /* Khung viền logo uy tín đồng bộ từ store */
+        .brand-badge img { 
+        width: 45px !important; 
+        height: 45px !important; 
+        border-radius: 50% !important; 
+        object-fit: cover !important; 
+        border: 2px solid var(--torii-red) !important; 
+        box-shadow: 0 4px 10px rgba(205, 92, 92, 0.3) !important; 
+        background: white !important; 
+        padding: 2px !important; 
+    }
         .brand-text { color: var(--torii-red); font-family: 'SVNRomaji', 'Noto Serif JP', serif; font-size: 1.8rem; font-weight: normal; letter-spacing: 2px; text-transform: capitalize; }
 
         .nav-pills { display: flex; align-items: center; justify-content: center; gap: 15px; }
@@ -281,7 +291,6 @@
             
             <div class="hero-buttons">
                 <a href="store.html" class="cta-button btn-primary">🛒 Ghé Cửa Hàng Ngay</a>
-                <a href="https://poe.com/invite/eb48a4eb36fe4c61b3792980ec7b16eb" target="_blank" class="cta-button btn-secondary">🤖 Trò chuyện AI Atomi</a>
             </div>
         </div>
     </section>
